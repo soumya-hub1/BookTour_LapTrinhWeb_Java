@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+<h1>Search Results</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Lặp qua danh sách kết quả tìm kiếm -->
+    <tr th:each="result : ${SearchTour}">
+        <td th:text="${result.tourName}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
