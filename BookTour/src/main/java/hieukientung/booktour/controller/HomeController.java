@@ -19,10 +19,5 @@ public class HomeController {
         model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
         return "index";
     }
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
 }
 
