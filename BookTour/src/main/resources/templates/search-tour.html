@@ -14,9 +14,12 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Lặp qua danh sách kết quả tìm kiếm -->
+    <!-- Lặp qua danh sách kết quả tìm kiếm hiển thị lên vào nếu không có thì in ra không có-->
     <tr th:each="result : ${SearchTour}">
         <td th:text="${result.tourName}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(SearchTour)}">
+        <td colspan="3">Xin lỗi bạn vì chúng tôi không có tour du lịch bạn vừa tìm!</td>
     </tr>
     </tbody>
 </table>
