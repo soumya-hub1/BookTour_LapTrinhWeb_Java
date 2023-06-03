@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,11 +26,11 @@ public class Tour {
     @Column(name = "price", precision = 18, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "departure_time")
-    private Instant departureTime;
+    @Column(name = "date_start")
+    private LocalDate dateStart;
 
-    @Column(name = "return_time")
-    private Instant returnTime;
+    @Column(name = "date_end")
+    private LocalDate dateEnd;
 
     @Column(name = "status")
     private Integer status;
