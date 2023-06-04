@@ -15,22 +15,7 @@ import java.util.List;
 @Service
 public class SearchServiceImp implements SearchService {
     @Autowired
-    private DestinationPointRepository destinationPointRepository;
-
-    @Autowired
-    private DeparturePointRepository departurePointRepository;
-    @Autowired
     private TourRepository tourRepository;
-
-    @Override
-    public List<DestinationPoint> getAllDestinationPoint() {
-        return destinationPointRepository.findAll();
-    }
-
-    @Override
-    public List<DeparturePoint> getAllDeparturePoint() {
-        return departurePointRepository.findAll();
-    }
 
     @Override
     public List<Tour> searchTour(String departurePoint, String destinationPoint) {

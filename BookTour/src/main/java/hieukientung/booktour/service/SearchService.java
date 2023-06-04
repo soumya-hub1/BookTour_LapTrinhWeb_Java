@@ -8,10 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface SearchService {
-    List<DestinationPoint> getAllDestinationPoint();
-
-    List<DeparturePoint> getAllDeparturePoint();
-
     List<Tour> searchTour(String departurePoint, String destinationPoint);
 
     List<Tour> searchTour(String departurePoint, String destinationPoint, LocalDate dateStart, LocalDate dateEnd);
