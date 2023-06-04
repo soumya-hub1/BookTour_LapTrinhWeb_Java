@@ -215,7 +215,8 @@ a:focus {
 .main-header {
     position: relative;
     max-height: 100px;
-    z-index: 1030
+    z-index: 1030;
+    background: rgba(77, 78, 84, 1);
 }
 
 .main-header>.navbar {
@@ -446,6 +447,10 @@ a:focus {
     .left-side {
         padding-top: 100px !important
     }
+}
+
+.main-sidebar {
+    background: rgba(77, 78, 84, 1);
 }
 
 .main-sidebar,
