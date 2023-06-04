@@ -448,11 +448,6 @@ a:focus {
         padding-top: 100px !important
     }
 }
-
-.main-sidebar {
-    background: rgba(77, 78, 84, 1);
-}
-
 .main-sidebar,
 .left-side {
     position: absolute;
