@@ -120,9 +120,9 @@
                                                     <div class="travel-select-icon">
                                                         <select class="form-control" name="departurePoint">
                                                             <option value="default">Enter your departure point</option>
-                                                            <option th:each="listDeparture : ${listDeparture}"
-                                                                    th:value="${listDeparture.id}"
-                                                                    th:text="${listDeparture.departureName}">
+                                                            <option th:each="departure : ${listDeparture}"
+                                                                    th:value="${departure.id}"
+                                                                    th:text="${departure.departureName}">
                                                             </option>
                                                         </select>
                                                     </div>
