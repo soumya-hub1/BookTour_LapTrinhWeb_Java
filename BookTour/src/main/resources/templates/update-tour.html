@@ -3,6 +3,38 @@
 <html>
 <head>
     <title>Admin Page</title>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--font-family-->
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
+    <!-- TITLE OF SITE -->
+    <title>Travel</title>
+    <!-- favicon img -->
+    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+    <!--animate.css-->
+    <link rel="stylesheet" href="/assets/css/animate.css"/>
+    <!--hover.css-->
+    <link rel="stylesheet" href="/assets/css/hover-min.css">
+    <!--datepicker.css-->
+    <link rel="stylesheet" href="/assets/css/datepicker.css">
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css"/>
+    <!-- range css-->
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css"/>
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="/assets/css/bootsnav.css"/>
+    <!--style.css-->
+    <link rel="stylesheet" href="/assets/css/style.css"/>
+    <!--responsive.css-->
+    <link rel="stylesheet" href="/assets/css/responsive.css"/>
 </head>
 <body>
 <h1>Admin Page</h1>
@@ -19,12 +51,13 @@
     </div>
     <div>
         <label>Date Start:</label>
-        <input type="date" th:field="*{dateStart}" th:value="${#temporals.format(tour.dateStart, 'yyyy-MM-dd')}"/>
+        <input type="text" th:value="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}" name="dateStart"
+               class="form-control" data-toggle="datepicker">
     </div>
     <div>
         <label>Date End:</label>
-        <input type="date" th:field="*{dateEnd}" th:value="${#temporals.format(tour.dateEnd, 'yyyy-MM-dd')}"/>
-    </div>
+        <input type="text" th:value="${#temporals.format(tour.dateEnd, 'dd/MM/yyyy')}" name="dateEnd"
+               class="form-control" data-toggle="datepicker"></div>
     <div>
         <label>Status:</label>
         <input type="number" th:field="*{status}"/>
@@ -35,8 +68,7 @@
     </div>
     <div>
         <label>Departure:</label>
-        <input type="text" th:value="${tour.departure.getDepartureName()}"/>
-        <select class="form-control" id="destination" name="destination.id">
+        <select class="form-control" id="departure" name="departure" th:field="*{departure.id}">
             <option th:each="departure : ${listDeparture}"
                     th:value="${departure.id}"
                     th:text="${departure.departureName}"
@@ -46,8 +78,7 @@
     </div>
     <div>
         <label>Destination:</label>
-        <input type="text" th:value="${tour.destination.getDestinationName()}"/>
-        <select th:field="*{destination.id}">
+        <select class="form-control" id="destination" name="destination" th:field="*{destination.id}">
             <option th:each="destination : ${listDestination}"
                     th:value="${destination.id}"
                     th:text="${destination.destinationName}"
@@ -57,13 +88,48 @@
     </div>
     <div>
         <label>Discount:</label>
-        <!--        <input type="text" th:value="${tour.discount.getDiscountName()}"/>-->
+        <input type="text" th:value="${tour.discount.getDiscountName()}" name="discount"/>
     </div>
     <div>
         <label>Tour Type:</label>
-        <input type="text" th:value="${tour.tourType.getTourTypeName()}"/>
+        <input type="text" th:value="${tour.tourType.getTourTypeName()}" name="tourType"/>
     </div>
     <button type="submit">Update Tour</button>
 </form>
+<script src="/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<!--modernizr.min.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+<!--bootstrap.min.js-->
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!-- bootsnav js -->
+<script src="/assets/js/bootsnav.js"></script>
+
+<!-- jquery.filterizr.min.js -->
+<script src="/assets/js/jquery.filterizr.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+<!--jquery-ui.min.js-->
+<script src="/assets/js/jquery-ui.min.js"></script>
+
+<!-- counter js -->
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<script src="/assets/js/waypoints.min.js"></script>
+
+<!--owl.carousel.js-->
+<script src="/assets/js/owl.carousel.min.js"></script>
+
+<!-- jquery.sticky.js -->
+<script src="/assets/js/jquery.sticky.js"></script>
+
+<!--datepicker.js-->
+<script src="/assets/js/datepicker.js"></script>
+
+<!--Custom JS-->
+<script src="/assets/js/custom.js"></script>
 </body>
 </html>
