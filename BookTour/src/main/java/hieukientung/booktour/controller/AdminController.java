@@ -1,6 +1,7 @@
 package hieukientung.booktour.controller;
 
 import hieukientung.booktour.model.Tour;
+import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.HomeService;
 import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class AdminController {
 
     @Autowired
     private HomeService homeService;
+
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("")
     public String admin() {
@@ -33,6 +37,8 @@ public class AdminController {
         Tour tour = tourService.getTourById(id);
         model.addAttribute("listDestination", homeService.getAllDestinationPoint());
         model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
+        model.addAttribute("listTourType", adminService.getAllTourType());
+        model.addAttribute("listDiscount", adminService.getAllDiscount());
         model.addAttribute("tour", tour);
         return "update-tour";
     }
