@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour</title>
+</head>
+<body>
+    <div th:each="item : ${listTours}">
+        <h1 th:text="${item.tourName}">Tên tour</h1>
+        <div class="row" style="background-color: #00d8ff; display: inline-block;">
+            <b th:text=" 'từ ' + ${item.departure.departureName} + ' đến ' + ${item.destination.destinationName}"></b>
+        </div>
+        <h3 style="color: red;" th:text="${item.dateEnd.getDayOfMonth() - item.dateStart.getDayOfMonth()} + ' ngày'">thời gian về trừ thời gian đi</h3>
+        <p th:text="${item.description}">miêu tả</p>
+
+        <a th:href="@{/tour/getTour/{id} (id = ${item.id})}" class="btn btn-primary">Xem chi tiết tour</a>
+    </div>
+</body>
+</html>

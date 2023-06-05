@@ -40,7 +40,7 @@
     language: '',
 
     // The date string format
-    format: 'mm/dd/yyyy',
+    format: 'dd/mm/yyyy',
 
     // The initial date
     date: null,

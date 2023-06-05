@@ -25,7 +25,7 @@ public class AdminController {
     @PostMapping("/save")
     public String saveTour(@ModelAttribute("tour") Tour tour) {
         adminService.saveTour(tour);
-        return "admin";
+        return "redirect:/admin";
     }
 
     @GetMapping("/update-tour/{id}")
