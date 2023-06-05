@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TourServiceImp implements TourService{
+public class TourServiceImp implements TourService {
 
     @Autowired
     private TourRepository tourRepository;
@@ -20,14 +20,24 @@ public class TourServiceImp implements TourService{
     }
 
     @Override
-    public Tour getTourById(long id) {
+    public void saveTour(Tour tour) {
+        tourRepository.save(tour);
+    }
+
+    @Override
+    public Tour getTourById(Long id) {
         Optional<Tour> optional = tourRepository.findById(id);
         Tour tour = null;
         if (optional.isPresent()) {
             tour = optional.get();
         } else {
-            throw new RuntimeException(" Tour not found for id :: " + id);
+            throw new RuntimeException("Tour not found for id :: " + id);
         }
         return tour;
+    }
+
+    @Override
+    public void deleteTour(Long id) {
+        tourRepository.deleteById(id);
     }
 }
