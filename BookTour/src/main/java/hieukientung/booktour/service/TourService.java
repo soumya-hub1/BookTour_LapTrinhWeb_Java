@@ -5,7 +5,11 @@ import hieukientung.booktour.model.Tour;
 import java.util.List;
 
 public interface TourService {
-    public List<Tour> getAllTours();
+    List<Tour> getAllTours();
 
-    public Tour getTourById(long id);
+    void saveTour(Tour tour);
+
+    Tour getTourById(Long id);
+
+    void deleteTour(Long id);
 }

@@ -1,8 +1,8 @@
 package hieukientung.booktour.controller;
 
 import hieukientung.booktour.model.Tour;
-import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.HomeService;
+import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AdminController {
     @Autowired
-    private AdminService adminService;
+    private TourService tourService;
 
     @Autowired
     private HomeService homeService;
@@ -24,13 +24,13 @@ public class AdminController {
 
     @PostMapping("/save")
     public String saveTour(@ModelAttribute("tour") Tour tour) {
-        adminService.saveTour(tour);
+        tourService.saveTour(tour);
         return "redirect:/admin";
     }
 
     @GetMapping("/update-tour/{id}")
     public String updateTour(@PathVariable("id") Long id, Model model) {
-        Tour tour = adminService.getTourById(id);
+        Tour tour = tourService.getTourById(id);
         model.addAttribute("listDestination", homeService.getAllDestinationPoint());
         model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
         model.addAttribute("tour", tour);
@@ -39,7 +39,7 @@ public class AdminController {
 
     @GetMapping("/delete-tour/{id}")
     public String deleteTour(@PathVariable("id") Long id) {
-        adminService.deleteTour(id);
+        tourService.deleteTour(id);
         return "admin";
     }
 }
