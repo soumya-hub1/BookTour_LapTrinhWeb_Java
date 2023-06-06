@@ -1,6 +1,7 @@
 <!-- admin.html -->
 <!DOCTYPE html>
-<html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin}">
 <head>
     <title>Admin Page</title>
     <!-- META DATA -->
@@ -39,7 +40,7 @@
 <body>
 <h1>Admin Page</h1>
 
-<form th:object="${tour}" th:action="@{/admin/save}" method="POST">
+<form layout:fragment="content" th:object="${tour}" th:action="@{/admin/save}" method="POST">
     <input type="hidden" th:field="*{id}"/>
     <div>
         <label>Tour Name:</label>
