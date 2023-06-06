@@ -10,8 +10,12 @@
     <div>
         <b th:text=" 'Từ ' + ${tour.departure.departureName} + ' đến ' + ${tour.destination.destinationName}"></b>
     </div>
-    <h3 style="color: red;" th:text="${tour.dateEnd.getDayOfMonth() - tour.dateStart.getDayOfMonth()} + ' ngày'">Thời gian về trừ thời gian đi</h3>
+    <h3 style="color: red;"
+        th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày'">thời gian
+        về trừ thời gian đi</h3>
     <p th:text="${tour.description}">Miêu tả</p>
+
+    <a th:href="@{/tour/view-list-tours}" class="btn btn-primary">Trở lại</a>
 </div>
 </body>
 </html>
