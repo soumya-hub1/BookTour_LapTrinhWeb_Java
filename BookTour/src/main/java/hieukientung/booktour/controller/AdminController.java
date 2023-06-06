@@ -32,6 +32,17 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @GetMapping("/create-tour")
+    public String createTour(Model model) {
+        model.addAttribute("listDestination", homeService.getAllDestinationPoint());
+        model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
+        model.addAttribute("listTourType", adminService.getAllTourType());
+        model.addAttribute("listDiscount", adminService.getAllDiscount());
+        Tour tour = new Tour();
+        model.addAttribute("tour", tour);
+        return "create-tour";
+    }
+
     @GetMapping("/update-tour/{id}")
     public String updateTour(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);

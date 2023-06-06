@@ -16,20 +16,20 @@ public class TourController {
     @Autowired
     private TourService tourService;
 
-    @GetMapping("/getAllTours")
+    @GetMapping("/view-list-tours")
     public String getAllTours(Model model) {
         model.addAttribute("listTours", tourService.getAllTours());
-        return "getAllTour";
+        return "view-list-tours";
     }
 
-    @GetMapping("/getTour/{id}")
+    @GetMapping("/view-detail-tour/{id}")
     public String getTourById(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);
 
         if(tour == null) {
-            return "ERROR_404";
+            return "error-404";
         }
         model.addAttribute("tour", tour);
-        return "getTourById";
+        return "view-detail-tour";
     }
 }

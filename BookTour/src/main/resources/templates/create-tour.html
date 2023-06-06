@@ -40,7 +40,6 @@
 <h1>Admin Page</h1>
 
 <form th:object="${tour}" th:action="@{/admin/save}" method="POST">
-    <input type="hidden" th:field="*{id}"/>
     <div>
         <label>Tour Name:</label>
         <input type="text" th:field="*{tourName}"/>
