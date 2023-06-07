@@ -3,152 +3,89 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin}">
 <head>
-    <title>Admin Page</title>
-    <!-- META DATA -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--font-family-->
-    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
-    <!-- TITLE OF SITE -->
-    <title>Travel</title>
-    <!-- favicon img -->
-    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
-    <!--font-awesome.min.css-->
-    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
-    <!--animate.css-->
-    <link rel="stylesheet" href="/assets/css/animate.css"/>
-    <!--hover.css-->
-    <link rel="stylesheet" href="/assets/css/hover-min.css">
-    <!--datepicker.css-->
-    <link rel="stylesheet" href="/assets/css/datepicker.css">
-    <!--owl.carousel.css-->
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css"/>
-    <!-- range css-->
-    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css"/>
-    <!--bootstrap.min.css-->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
-    <!-- bootsnav -->
-    <link rel="stylesheet" href="/assets/css/bootsnav.css"/>
-    <!--style.css-->
-    <link rel="stylesheet" href="/assets/css/style.css"/>
-    <!--responsive.css-->
-    <link rel="stylesheet" href="/assets/css/responsive.css"/>
 </head>
 <body>
-    <div layout:fragment="content" class="content-wrapper">
-        <br>
-        <div class="container bg-white pd-20 bdr-5">
-            <br><h2>Update Tour</h2></br>
-            <form th:object="${tour}" th:action="@{/admin/save}" method="POST">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="tourName">Tour Name:</label>
-                            <input type="text"  class="form-control" th:field="*{tourName}" id="tourName" >
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Price:</label>
-                            <input type="number" step="0.01" th:field="*{price}" class="form-control" id="price">
-                        </div>
-                        <div class="form-group">
-                            <label for="startDate">Date Start:</label>
-                            <input type="date" th:value="${tour.dateStart}" name="dateStart" class="form-control" id="startDate">
-                        </div>
-                        <div class="form-group">
-                            <label for="endDate">Date End:</label>
-                            <input type="date" th:value="${tour.dateEnd}" name="dateEnd" class="form-control" id="endDate">
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <input type="number" th:field="*{status}" id="status" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" th:field="*{description}" rows="5" cols="50"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="destination">Destination:</label>
+    <div layout:fragment="content">
+        <div class="container px-4 mt-4">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">Update Tour</div>
+                    <div class="card-body">
+                        <form th:object="${tour}" th:action="@{/admin/save}" method="POST">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tourName">Tour Name:</label>
+                                        <input type="text"  class="form-control" th:field="*{tourName}" id="tourName" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price:</label>
+                                        <input type="number" step="0.01" th:field="*{price}" class="form-control" id="price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startDate">Date Start:</label>
+                                        <input type="date" th:value="${tour.dateStart}" name="dateStart" class="form-control" id="startDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">Date End:</label>
+                                        <input type="date" th:value="${tour.dateEnd}" name="dateEnd" class="form-control" id="endDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status:</label>
+                                        <input type="number" th:field="*{status}" id="status" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description:</label>
+                                        <textarea class="form-control" id="description" th:field="*{description}" rows="5" cols="50"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="destination">Destination:</label>
 
-                            <select class="form-control" id="destination" name="destination" th:field="*{destination.id}">
-                                <option th:each="destination : ${listDestination}"
-                                        th:value="${destination.id}"
-                                        th:text="${destination.destinationName}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="departure">Departure:</label>
-                            <select class="form-control" id="departure" name="departure" th:field="*{departure.id}">
-                                <option th:each="departure : ${listDeparture}"
-                                        th:value="${departure.id}"
-                                        th:text="${departure.departureName}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="discount">Discount:</label>
-                            <select class="form-control" id="discount" name="discount" th:field="*{discount.id}">
-                                <option th:each="discount : ${listDiscount}"
-                                        th:value="${discount.id}"
-                                        th:text="${discount.discountName}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tourType">Tour Type:</label>
-                            <select class="form-control" id="tourType" name="tourType" th:field="*{tourType.id}">-->
-                                    <option th:each="tourType : ${listTourType}"
-                                            th:value="${tourType.id}"
-                                            th:text="${tourType.tourTypeName}">
-                                    </option>
-                            </select>
-                        </div>
+                                        <select class="form-control" id="destination" name="destination" th:field="*{destination.id}">
+                                            <option th:each="destination : ${listDestination}"
+                                                    th:value="${destination.id}"
+                                                    th:text="${destination.destinationName}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="departure">Departure:</label>
+                                        <select class="form-control" id="departure" name="departure" th:field="*{departure.id}">
+                                            <option th:each="departure : ${listDeparture}"
+                                                    th:value="${departure.id}"
+                                                    th:text="${departure.departureName}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="discount">Discount:</label>
+                                        <select class="form-control" id="discount" name="discount" th:field="*{discount.id}">
+                                            <option th:each="discount : ${listDiscount}"
+                                                    th:value="${discount.id}"
+                                                    th:text="${discount.discountName}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tourType">Tour Type:</label>
+                                        <select class="form-control" id="tourType" name="tourType" th:field="*{tourType.id}">-->
+                                            <option th:each="tourType : ${listTourType}"
+                                                    th:value="${tourType.id}"
+                                                    th:text="${tourType.tourTypeName}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
+            </div>
         </div>
-
     </div>
-<script src="/assets/js/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-
-<!--modernizr.min.js-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-
-<!--bootstrap.min.js-->
-<script src="/assets/js/bootstrap.min.js"></script>
-
-<!-- bootsnav js -->
-<script src="/assets/js/bootsnav.js"></script>
-
-<!-- jquery.filterizr.min.js -->
-<script src="/assets/js/jquery.filterizr.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-<!--jquery-ui.min.js-->
-<script src="/assets/js/jquery-ui.min.js"></script>
-
-<!-- counter js -->
-<script src="/assets/js/jquery.counterup.min.js"></script>
-<script src="/assets/js/waypoints.min.js"></script>
-
-<!--owl.carousel.js-->
-<script src="/assets/js/owl.carousel.min.js"></script>
-
-<!-- jquery.sticky.js -->
-<script src="/assets/js/jquery.sticky.js"></script>
-
-<!--datepicker.js-->
-<script src="/assets/js/datepicker.js"></script>
-
-<!--Custom JS-->
-<script src="/assets/js/custom.js"></script>
 </body>
 </html>
