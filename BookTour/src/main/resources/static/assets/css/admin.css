@@ -4724,3 +4724,16 @@ fieldset[disabled] .btn-vk.active {
 .single-package-item:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 }
+
+/*!
+ !!!!!!!!!!!!! Fix hand !!!!!!!!!!!!!!!
+!*/
+.bg-white {
+    background :#fff;
+}
+.pd-20 {
+    padding: 20px;
+}
+.bdr-5 {
+    border-radius : 5px;
+}

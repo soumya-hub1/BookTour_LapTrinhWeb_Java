@@ -1,27 +1,59 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
+    <head>
+        <!-- META DATA -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--font-family-->
+        <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
+        <!-- TITLE OF SITE -->
+        <title>Travel</title>
+        <!-- favicon img -->
+        <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+        <!--animate.css-->
+        <link rel="stylesheet" href="/assets/css/animate.css"/>
+        <!--hover.css-->
+        <link rel="stylesheet" href="/assets/css/hover-min.css">
+        <!--datepicker.css-->
+        <link rel="stylesheet" href="/assets/css/datepicker.css">
+        <!--owl.carousel.css-->
+        <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css"/>
+        <!-- range css-->
+        <link rel="stylesheet" href="/assets/css/jquery-ui.min.css"/>
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+        <!-- bootsnav -->
+        <link rel="stylesheet" href="/assets/css/bootsnav.css"/>
+        <!--style.css-->
+        <link rel="stylesheet" href="/assets/css/style.css"/>
+        <!--responsive.css-->
+        <link rel="stylesheet" href="/assets/css/responsive.css"/>
+    </head>
 </head>
 <body>
-<h1>Search Results</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Lặp qua danh sách kết quả tìm kiếm hiển thị lên vào nếu không có thì in ra không có-->
-    <tr th:each="result : ${SearchTour}">
-        <td th:text="${result.tourName}"></td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(SearchTour)}">
-        <td colspan="3">Xin lỗi bạn vì chúng tôi không có tour du lịch bạn vừa tìm!</td>
-    </tr>
-    </tbody>
-</table>
+        <div class="container">
+            <h1>Search Result</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Tour Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="result : ${SearchTour}">
+                    <td th:text="${result.tourName}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(SearchTour)}">
+                    <td colspan="3">Xin lỗi bạn vì chúng tôi không có tour du lịch bạn vừa tìm!</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 </body>
 </html>
