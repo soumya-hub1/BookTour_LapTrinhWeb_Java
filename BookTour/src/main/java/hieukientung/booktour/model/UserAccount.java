@@ -14,7 +14,6 @@ import java.time.Instant;
 @Table(name = "user_account", schema = "book_tour")
 public class UserAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Size(max = 50)
     @Column(name = "username", nullable = false, length = 50)
     private String username;

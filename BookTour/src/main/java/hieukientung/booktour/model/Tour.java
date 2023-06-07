@@ -54,4 +54,7 @@ public class Tour {
     @JoinColumn(name = "tour_type_id")
     private TourType tourType;
 
+    @Lob
+    @Column(name = "image")
+    private String image;
 }
