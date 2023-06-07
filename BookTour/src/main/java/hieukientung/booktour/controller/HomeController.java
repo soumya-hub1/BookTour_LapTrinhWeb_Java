@@ -27,7 +27,7 @@ public class HomeController {
         if (allTours.size() < 0|| allTours.isEmpty()) {
             return "index";
         }
-        List<Tour> randomTours = randomTours(allTours, 1);
+        List<Tour> randomTours = randomTours(allTours, 6);
         model.addAttribute("listDestination", homeService.getAllDestinationPoint());
         model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
         model.addAttribute("listTours", randomTours);
