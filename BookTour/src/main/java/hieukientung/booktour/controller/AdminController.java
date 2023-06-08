@@ -21,15 +21,27 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("")
-    public String admin() {
-        return "admin";
-    }
-
     @PostMapping("/save")
     public String saveTour(@ModelAttribute("tour") Tour tour) {
         tourService.saveTour(tour);
         return "redirect:/admin";
+    }
+
+    @GetMapping("")
+    public String getAllTours(Model model) {
+        model.addAttribute("listTours", tourService.getAllTours());
+        return "admin/view-list-tours";
+    }
+
+    @GetMapping("/view-detail-tour/{id}")
+    public String getTourById(@PathVariable("id") Long id, Model model) {
+        Tour tour = tourService.getTourById(id);
+
+        if (tour == null) {
+            return "error-404";
+        }
+        model.addAttribute("tour", tour);
+        return "admin/view-detail-tour";
     }
 
     @GetMapping("/create-tour")
@@ -40,7 +52,7 @@ public class AdminController {
         model.addAttribute("listDiscount", adminService.getAllDiscount());
         Tour tour = new Tour();
         model.addAttribute("tour", tour);
-        return "create-tour";
+        return "admin/create-tour";
     }
 
     @GetMapping("/update-tour/{id}")
@@ -51,12 +63,12 @@ public class AdminController {
         model.addAttribute("listTourType", adminService.getAllTourType());
         model.addAttribute("listDiscount", adminService.getAllDiscount());
         model.addAttribute("tour", tour);
-        return "update-tour";
+        return "admin/update-tour";
     }
 
     @GetMapping("/delete-tour/{id}")
     public String deleteTour(@PathVariable("id") Long id) {
         tourService.deleteTour(id);
-        return "admin";
+        return "redirect:/admin/view-list-tours";
     }
 }
