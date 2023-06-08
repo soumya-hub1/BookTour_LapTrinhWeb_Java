@@ -24,7 +24,7 @@ public class HomeController {
     public String index(Model model) {
         List<Tour> allTours = tourService.getAllTours();
 
-        if (allTours.size() < 0|| allTours.isEmpty()) {
+        if (allTours.size() < 6|| allTours.isEmpty()) {
             return "index";
         }
         List<Tour> randomTours = randomTours(allTours, 6);
