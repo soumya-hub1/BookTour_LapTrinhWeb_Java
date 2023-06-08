@@ -6,7 +6,7 @@
 
 /*==================================
 
-font-family: 'Poppins', sans-serif;
+
 
 ==================================== */
 
@@ -49,7 +49,7 @@ body {
     font-size: 14px;
     color: #222222;
     background: #fff;
-    font-family: 'Poppins', sans-serif;
+    font-family : "Open-sans";
     max-width: 1920px;
     margin: 0 auto;
     overflow-x: hidden;
@@ -196,7 +196,7 @@ body {
 .logo a:focus {
     color: #fff;
     font-size: 24px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     font-weight: 600;
     margin: 14px 0px 0;
@@ -232,7 +232,7 @@ body {
     color: #fff;
     font-size: 16px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     -webkit-transition: all 0.25s ease-in-out 0s;
     -moz-transition: all 0.25s ease-in-out 0s;
@@ -299,7 +299,7 @@ body {
     text-align: center;
     color: #fff;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     border-radius: 5px;
     -webkit-transition: 0.5s ease-in-out;
@@ -378,7 +378,7 @@ body {
     white-space: nowrap;
     color: #fff;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: uppercase;
     border-radius: 5px;
     box-shadow: 0 5px 20px rgba(14, 15, 18, .2);
@@ -433,7 +433,7 @@ body {
     cursor: default;
     font-size: 20px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     -webkit-transition: .5s;
     -moz-transition: .5s;
@@ -454,7 +454,7 @@ body {
     cursor: default;
     font-size: 20px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     padding: 17px 40px 17px 46px;
     border: 0;
@@ -485,7 +485,7 @@ body {
     color: #565a5c;
     font-size: 20px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     margin-bottom: 17px;
 }
@@ -532,7 +532,7 @@ body {
 .travel-check-icon input {
     color: #aaa;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     height: 48px;
 }
@@ -573,7 +573,7 @@ body {
     color: #565a5c;
     font-size: 16px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     margin-bottom: 17px;
     margin-left: 0px;
@@ -630,7 +630,7 @@ body {
     color: #565a5c;
     font-size: 20px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
 }
 
@@ -671,14 +671,14 @@ body {
     text-align: center;
     width: 280px;
     border: none !important;;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 .price_slider_amount label {
     font-weight: 500;
     font-size: 14px;
     color: #aaa;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 .price_slider_amount > input[type="text"]:focus {
@@ -697,7 +697,7 @@ body {
     font-weight: 500;
     font-size: 14px;
     color: #aaa;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 .about-view.travel-btn {
@@ -731,7 +731,7 @@ body {
     color: #565a5c;
     font-size: 16px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
 }
 
@@ -739,7 +739,7 @@ body {
     color: #aaa;
     font-size: 14px;
     text-transform: inherit;
-    font-family: 'Poppins', sans-serif;
+
     margin-top: 17px;
 }
 
@@ -765,7 +765,7 @@ body {
     font-size: 30px;
     font-weight: 500;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+
     padding-bottom: 14px;
 }
 
@@ -773,7 +773,7 @@ body {
     position: relative;
     color: #aaa;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
     margin-top: 17px;
 }
 
@@ -822,7 +822,7 @@ body {
     color: #fff;
     font-size: 24px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     margin-bottom: 3px;
     -webkit-transition: all 0.6s linear;
@@ -836,7 +836,7 @@ body {
     color: #fff;
     font-size: 16px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+
     -webkit-transition: all 0.6s linear;
     -moz-transition: all 0.6s linear;
     -ms-transition: all 0.6s linear;
@@ -888,7 +888,7 @@ body {
     font-size: 20px;
     color: #565a5c;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     padding: 20px 0;
 }
 
@@ -910,7 +910,7 @@ body {
 .packages-para p {
     font-size: 14px;
     color: #aaa;
-    font-family: 'Poppins', sans-serif;
+
     margin-bottom: 15px;
 }
 
@@ -928,7 +928,7 @@ body {
     margin-left: 20px;
     font-size: 14px;
     color: #aaa;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
 }
 
@@ -1022,7 +1022,7 @@ body {
 .home1-testm-txt p {
     color: #aaa;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
     max-width: 284px;
     margin: 0 auto;
     padding: 20px 0;
@@ -1032,7 +1032,7 @@ body {
     display: block;
     color: #00d8ff;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     text-transform: capitalize;
 }
@@ -1040,7 +1040,7 @@ body {
 .home1-testm-txt h4 {
     color: #aaa;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 300;
     padding: 15px 0 0px;
 }
@@ -1103,7 +1103,7 @@ body {
 .single-special-shape-txt h4 {
     color: #fff;
     font-size: 30px;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 700;
     text-align: center;
 }
@@ -1138,7 +1138,7 @@ body {
 .single-special-offer h2 {
     color: #74eaff;
     font-size: 30px;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     margin-bottom: 22px;
 }
@@ -1214,7 +1214,7 @@ body {
     padding: 25px 0 25px 20px;
     color: #565a5c;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 .thumbnail span {
@@ -1222,7 +1222,7 @@ body {
     font-size: 14px;
     font-weight: normal;
     padding-left: 25px;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 .thumbnail-img {
@@ -1276,7 +1276,7 @@ body {
     color: #565a5c;
     font-size: 15px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     margin-top: 15px;
     padding-bottom: 3px;
     min-height: 63px;
@@ -1286,12 +1286,12 @@ body {
 .blog-content .caption .blog-txt p {
     color: #aaaaaa;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+
     min-height: 105px
 }
 
 .blog-content .caption .blog-txt a {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     color: #64cbfa;
     padding-bottom: 12px;
@@ -1321,7 +1321,7 @@ body {
 .subscribe-title h2 {
     color: #fff;
     font-size: 38px;
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     line-height: 1.4;
 
@@ -1330,7 +1330,7 @@ body {
 .subscribe-title p {
     color: #fff;
     font-size: 20px;
-    font-family: 'Poppins', sans-serif;
+
     line-height: 1.4;
     margin-top: 10px;
 }
@@ -1381,7 +1381,7 @@ body {
     color: #fff;
     font-size: 16px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+
     box-shadow: 0 1px 5px rgba(2, 3, 3, 0.15);
     letter-spacing: 0.7px;
     border: 0;
@@ -1430,7 +1430,7 @@ body {
 }
 
 .single-footer-item {
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
 }
 
@@ -1450,7 +1450,7 @@ body {
 .footer-logo a:focus {
     color: #565a5c;
     font-size: 24px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
     font-weight: 600;
     margin: 14px 0px 0;
@@ -1465,7 +1465,7 @@ body {
 .footer-logo p {
     color: #aaa;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+
     text-transform: capitalize;
 }
 
