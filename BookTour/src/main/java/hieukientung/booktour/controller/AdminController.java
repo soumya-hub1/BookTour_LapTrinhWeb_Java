@@ -4,6 +4,7 @@ import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.HomeService;
 import hieukientung.booktour.service.TourService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class AdminController {
     private AdminService adminService;
 
 
-    @GetMapping("")
+    @GetMapping(value = {"", "/view-list-tours"})
     public String getAllTours(Model model) {
         return findPaginated(1, model);
     }
@@ -37,9 +38,8 @@ public class AdminController {
     }
 
     @GetMapping("/view-detail-tour/{id}")
-    public String getTourById(@PathVariable("id") Long id, Model model) {
+    public String getTourById(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
         Tour tour = tourService.getTourById(id);
-
         if (tour == null) {
             return "error-404";
         }
@@ -75,7 +75,7 @@ public class AdminController {
         return "redirect:/admin/view-list-tours";
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping(value = "view-list-tours/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
         int pageSize = 6;
         Page<Tour> page = tourService.findPaginated(pageNo, pageSize);
