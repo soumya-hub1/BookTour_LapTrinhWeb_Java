@@ -19,7 +19,7 @@ public class TourController {
     @Autowired
     private TourService tourService;
 
-    @GetMapping("/view-list-tours")
+    @GetMapping(value = {"", "/view-list-tours"})
     public String getAllTours(Model model) {
         return findPaginated(1, model);
     }
@@ -35,7 +35,7 @@ public class TourController {
         return "view-detail-tour";
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping("/view-list-tours/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
         int pageSize = 6;
         Page<Tour> page = tourService.findPaginated(pageNo, pageSize);

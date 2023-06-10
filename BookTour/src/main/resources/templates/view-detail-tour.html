@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>TourNest - Detail Tour</title>
     <link rel="stylesheet" href="/assets/css/detail-tour.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
           crossorigin="anonymous">
@@ -13,58 +13,54 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <div>
-        <div class="container">
-            <div class="row">
-                <h1 th:text="${tour.tourName}">Tên tour</h1>
-                <div class="col-lg-7 col-md-12 col-sm-12 left">
-                    <div class="image">
-                        <img class="img-fluid" src="/assets/images/detail-tour/1.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-12 col-sm-12 right">
-                    <div class="row gy-4">
-                        <div class="col-md-12 col-sm-12 small">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="image">
-                                        <img class="img-fluid" src="/assets/images/detail-tour/2.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="image">
-                                        <img class="img-fluid" src="/assets/images/detail-tour/3.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 big">
-                            <div class="image">
-                                <img class="img-fluid" src="/assets/images/detail-tour/4.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
+<div>
+    <div class="container">
+        <div class="row">
+            <h1 th:text="${tour.tourName}">Tên tour</h1>
+            <div class="col-lg-7 col-md-12 col-sm-12 left">
+                <div class="image">
+                    <img class="img-fluid" src="/assets/images/detail-tour/1.jpg" alt="">
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="row mb-2">
-                    <b th:text=" 'Từ ' + ${tour.departure.departureName} + ' đến ' + ${tour.destination.destinationName}"></b>
-                </div>
-                <div class="row mb-2">
-                    <h3 style="color: red;"
-                        th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày'">thời gian
-                        về trừ thời gian đi</h3>
-                </div>
-                <div class="row mb-2">
-                    <p th:text="${tour.description}">Miêu tả</p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 pull-right">
-                        <a th:href="@{/tour/view-list-tours}" class="btn btn-primary">Trở lại</a>
+            <div class="col-lg-5 col-md-12 col-sm-12 right">
+                <div class="row gy-4">
+                    <div class="col-md-12 col-sm-12 small">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="image">
+                                    <img class="img-fluid" src="/assets/images/detail-tour/2.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="image">
+                                    <img class="img-fluid" src="/assets/images/detail-tour/3.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 big">
+                        <div class="image">
+                            <img class="img-fluid" src="/assets/images/detail-tour/4.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-4">
+            <div class="row mb-2">
+                <b th:text=" 'Từ ' + ${tour.departure.departureName} + ' đến ' + ${tour.destination.destinationName}"></b>
+            </div>
+            <div class="row mb-2">
+                <h3 style="color: red;"
+                    th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày'">
+                    thời gian
+                    về trừ thời gian đi</h3>
+            </div>
+            <div class="row mb-2">
+                <p th:text="${tour.description}">Miêu tả</p>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 </html>

@@ -5,6 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>TourNest - Update tour</title>
+    <!-- Nhúng tệp tin CSS của TinyMCE -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@5.9.2/skins/ui/oxide/skin.min.css">
+    <!-- Nhúng tệp tin JavaScript của TinyMCE -->
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@5.9.2/tinymce.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -13,7 +17,8 @@
             <div class="card mb-4">
                 <div class="card-header">Update Tour</div>
                 <div class="card-body">
-                    <form th:object="${tour}" th:action="@{/admin/save}" method="POST">
+                    <form th:object="${tour}" th:action="@{/admin/save}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -48,7 +53,6 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="destination">Destination:</label>
-
                                     <select class="form-control" id="destination" name="destination"
                                             th:field="*{destination.id}">
                                         <option th:each="destination : ${listDestination}"
@@ -97,5 +101,21 @@
         </div>
     </div>
 </div>
+<script>
+    tinymce.init({
+        selector: '#description',
+        height: 300,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | bold italic backcolor | \
+            alignleft aligncenter alignright alignjustify | \
+            bullist numlist outdent indent | removeformat | help'
+    });
+</script>
+
 </body>
 </html>
