@@ -7,18 +7,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "user_account", schema = "book_tour")
-public class UserAccount {
+public class User {
     @Id
     @Size(max = 50)
     @Column(name = "username", nullable = false, length = 50)
     private String username;
 
-    @Size(max = 50)
+    @Size(max = 150)
     @NotNull
     @Column(name = "password", nullable = false, length = 50)
     private String password;
@@ -42,7 +44,7 @@ public class UserAccount {
     private String email;
 
     @Column(name = "birthday")
-    private Instant birthday;
+    private LocalDate birthday;
 
     @Size(max = 150)
     @Column(name = "address", length = 150)
@@ -56,4 +58,10 @@ public class UserAccount {
     @Column(name = "image")
     private String image;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles;
 }
