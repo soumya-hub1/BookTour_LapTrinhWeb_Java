@@ -36,8 +36,14 @@ public class WebSecurityConfig {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/admin")
-                                .defaultSuccessUrl("/")
+                                .successHandler((request, response, authentication) -> {
+                                    if (authentication.getAuthorities().stream()
+                                            .anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
+                                        response.sendRedirect("/admin");
+                                    } else {
+                                        response.sendRedirect("/");
+                                    }
+                                })
                                 .permitAll()
                 ).logout(
                         logout -> logout
