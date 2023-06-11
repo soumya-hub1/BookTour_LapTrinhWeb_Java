@@ -30,20 +30,13 @@ public class WebSecurityConfig {
         http.csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/admin").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/create-tour").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/update-tour/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/save").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/delete-tour/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/view-list-tours").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/view-detail-tour/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/admin/view-list-tours/page/**").hasAnyAuthority("ADMIN")
-                                .anyRequest().authenticated()
-
+                                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                                .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/admin")
                                 .defaultSuccessUrl("/")
                                 .permitAll()
                 ).logout(
