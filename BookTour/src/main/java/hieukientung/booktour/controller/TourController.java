@@ -29,7 +29,7 @@ public class TourController {
         Tour tour = tourService.getTourById(id);
 
         if (tour == null) {
-            return "error-404";
+            return "error/error-404";
         }
         model.addAttribute("tour", tour);
         return "view-detail-tour";
