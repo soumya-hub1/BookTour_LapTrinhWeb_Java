@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="/assets/css/style.css"/>
     <!--responsive.css-->
     <link rel="stylesheet" href="/assets/css/responsive.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
 </head>
 
 <body>
@@ -67,8 +69,7 @@
                                 <li class="smooth-menu"><a href="#pack">Tour packages</a></li>
                                 <li class="smooth-menu"><a href="#subs">Subcription</a></li>
                                 <li>
-                                    <button class="book-btn">ĐẶT NGAY
-                                    </button>
+                                    <a class="book-btn" href="login.html">Login</a>
                                 </li>
                             </ul>
                         </div>
@@ -107,11 +108,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="single-travel-boxes slide-to-left">
+                <div class="single-travel-boxes">
                     <div id="desc-tabs" class="desc-tabs">
+
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li role="presentation" class="active">
+                                <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
+                                    <i class="fa fa-tree"></i>
+                                    Tours
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a href="#checking" aria-controls="hotels" role="tab" data-toggle="tab">
+                                    <i class="fa fa-building"></i>
+                                    Checking Book
+                                </a>
+                            </li>
+
+
+                        </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active fade in">
+                            <div role="tabpanel" class="tab-pane active fade in" id="tours">
                                 <form th:action="@{/search-tour}" method="get">
                                     <div class="tab-para">
                                         <div class="row">
@@ -173,6 +193,31 @@
                                             <div class="about-btn travel-mrt-0 pull-right">
                                                 <button type="submit" class="about-view travel-btn">
                                                     SEARCH TOUR
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade in" id="checking">
+                                <form th:action="@{/search-tour}" method="get">
+                                    <div class="tab-para">
+                                        <div class="row">
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <div class="single-tab-select-box">
+
+                                                        <input type="text" value="name" class="form-control about-btn travel-mrt-0 ">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <div class="text-danger" th:if="${errorMessage}">
+                                                    <span th:text="${errorMessage}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="about-btn travel-mrt-0 pull-right">
+                                                <button type="submit" class="about-view travel-btn">
+                                                    <i class="fa-solid fa-magnifying-glass-location"></i>
                                                 </button>
                                             </div>
                                         </div>
