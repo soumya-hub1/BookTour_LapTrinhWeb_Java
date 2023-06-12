@@ -1,6 +1,7 @@
 package hieukientung.booktour.controller;
 
 import hieukientung.booktour.service.SearchService;
+import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
+    @Autowired
+    private TourService tourService;
+
     @GetMapping("/search-tour")
     public String searchTour(@RequestParam("departurePoint") String departurePoint,
                              @RequestParam("destinationPoint") String destinationPoint,
@@ -24,6 +28,8 @@ public class SearchController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if (departurePoint.equals("default") || destinationPoint.equals("default")) {
             model.addAttribute("errorMessage", "Vui lòng chọn đầy đủ nơi khởi hành và nơi kết thúc");
+            model.addAttribute("listDestination", tourService.getAllDestinationPoint());
+            model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
             return "index";
         }
 

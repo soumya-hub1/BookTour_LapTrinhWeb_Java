@@ -2,7 +2,6 @@ package hieukientung.booktour.controller;
 
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.service.AdminService;
-import hieukientung.booktour.service.HomeService;
 import hieukientung.booktour.service.TourService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,6 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private TourService tourService;
-
-    @Autowired
-    private HomeService homeService;
 
     @Autowired
     private AdminService adminService;
@@ -49,8 +45,8 @@ public class AdminController {
 
     @GetMapping("/create-tour")
     public String createTour(Model model) {
-        model.addAttribute("listDestination", homeService.getAllDestinationPoint());
-        model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
+        model.addAttribute("listDestination", tourService.getAllDestinationPoint());
+        model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
         model.addAttribute("listTourType", adminService.getAllTourType());
         model.addAttribute("listDiscount", adminService.getAllDiscount());
         Tour tour = new Tour();
@@ -61,8 +57,8 @@ public class AdminController {
     @GetMapping("/update-tour/{id}")
     public String updateTour(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);
-        model.addAttribute("listDestination", homeService.getAllDestinationPoint());
-        model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
+        model.addAttribute("listDestination", tourService.getAllDestinationPoint());
+        model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
         model.addAttribute("listTourType", adminService.getAllTourType());
         model.addAttribute("listDiscount", adminService.getAllDiscount());
         model.addAttribute("tour", tour);

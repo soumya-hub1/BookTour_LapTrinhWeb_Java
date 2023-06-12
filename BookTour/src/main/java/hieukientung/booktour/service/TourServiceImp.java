@@ -1,6 +1,10 @@
 package hieukientung.booktour.service;
 
+import hieukientung.booktour.model.DeparturePoint;
+import hieukientung.booktour.model.DestinationPoint;
 import hieukientung.booktour.model.Tour;
+import hieukientung.booktour.repository.DeparturePointRepository;
+import hieukientung.booktour.repository.DestinationPointRepository;
 import hieukientung.booktour.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +20,12 @@ public class TourServiceImp implements TourService {
 
     @Autowired
     private TourRepository tourRepository;
+
+    @Autowired
+    private DestinationPointRepository destinationPointRepository;
+
+    @Autowired
+    private DeparturePointRepository departurePointRepository;
 
     @Override
     public List<Tour> getAllTours() {
@@ -48,5 +58,15 @@ public class TourServiceImp implements TourService {
     public Page<Tour> findPaginated(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return this.tourRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<DestinationPoint> getAllDestinationPoint() {
+        return destinationPointRepository.findAll();
+    }
+
+    @Override
+    public List<DeparturePoint> getAllDeparturePoint() {
+        return departurePointRepository.findAll();
     }
 }
