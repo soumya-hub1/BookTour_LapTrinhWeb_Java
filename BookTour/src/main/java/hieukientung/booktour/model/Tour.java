@@ -34,8 +34,7 @@ public class Tour {
     @Column(name = "status")
     private Integer status;
 
-    @Lob
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,7 +53,6 @@ public class Tour {
     @JoinColumn(name = "tour_type_id")
     private TourType tourType;
 
-    @Lob
-    @Column(name = "image")
+    @Column(name = "image", length = 250)
     private String image;
 }

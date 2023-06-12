@@ -1,7 +1,6 @@
 package hieukientung.booktour.controller;
 
 import hieukientung.booktour.model.Tour;
-import hieukientung.booktour.service.HomeService;
 import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,21 +14,18 @@ import java.util.List;
 @Controller
 public class HomeController {
     @Autowired
-    private HomeService homeService;
-
-    @Autowired
     private TourService tourService;
 
     @GetMapping("/")
     public String index(Model model) {
         List<Tour> allTours = tourService.getAllTours();
 
-        if (allTours.size() < 6|| allTours.isEmpty()) {
+        if (allTours.size() < 6 || allTours.isEmpty()) {
             return "index";
         }
         List<Tour> randomTours = randomTours(allTours, 6);
-        model.addAttribute("listDestination", homeService.getAllDestinationPoint());
-        model.addAttribute("listDeparture", homeService.getAllDeparturePoint());
+        model.addAttribute("listDestination", tourService.getAllDestinationPoint());
+        model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
         model.addAttribute("listTours", randomTours);
         return "index";
     }

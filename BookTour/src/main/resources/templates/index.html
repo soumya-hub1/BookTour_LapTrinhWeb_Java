@@ -165,6 +165,11 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-lg-5 col-md-3 col-sm-4">
+                                                <div class="text-danger" th:if="${errorMessage}">
+                                                    <span th:text="${errorMessage}"></span>
+                                                </div>
+                                            </div>
                                             <div class="about-btn travel-mrt-0 pull-right">
                                                 <button type="submit" class="about-view travel-btn">
                                                     SEARCH TOUR
