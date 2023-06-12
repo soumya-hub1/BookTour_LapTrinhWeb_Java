@@ -22,8 +22,8 @@ public class SearchController {
                              @RequestParam("dateEnd") String dateEnd,
                              Model model) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if (departurePoint.isEmpty() || destinationPoint.isEmpty()) {
-            model.addAttribute("errorMessage", "Vui lòng nhập đầy đủ điểm khởi hành và điểm đến.");
+        if (departurePoint.equals("default") || destinationPoint.equals("default")) {
+            model.addAttribute("errorMessage", "Vui lòng chọn đầy đủ nơi khởi hành và nơi kết thúc");
             return "index";
         }
 
