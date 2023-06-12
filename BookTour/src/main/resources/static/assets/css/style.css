@@ -411,7 +411,7 @@ body {
 .single-travel-boxes {
     margin-top: -100px;
     background: #fff;
-    border-radius: 20px;
+
 }
 
 .tab-para p {
@@ -421,7 +421,7 @@ body {
 .desc-tabs {
     border: transparent;
     box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
-    border-radius: 20px;
+
 }
 
 .desc-tabs .nav-tabs {
@@ -876,6 +876,7 @@ body {
     -o-transition: .5s;
     transition: .5s;
     border-radius: 20px;
+    cursor: pointer;
 }
 .single-package-item:hover {
     transform : translateY(-10px);
