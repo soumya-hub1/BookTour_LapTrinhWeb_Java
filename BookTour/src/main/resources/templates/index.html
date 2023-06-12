@@ -64,8 +64,8 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="smooth-menu"><a href="#home">Trang chủ</a></li>
                                 <li><a href="/tour/view-list-tours">Danh sách</a></li>
-                                <li class="smooth-menu"><a href="#pack">Gói du lịch</a></li>
-                                <li class="smooth-menu"><a href="#subs">Nhận thông báo</a></li>
+                                <li class="smooth-menu"><a href="#pack">Tour packages</a></li>
+                                <li class="smooth-menu"><a href="#subs">Subcription</a></li>
                                 <li>
                                     <button class="book-btn">ĐẶT NGAY
                                     </button>
@@ -222,7 +222,6 @@
                                 </p>
                             </div>
                             <div class="about-btn">
-                                <span th:text="${tour.price}"></span>
                                 <button class="about-view packages-btn">
                                     book now
                                 </button>
@@ -241,18 +240,18 @@
     <div class="container">
         <div class="subscribe-title text-center">
             <h2>
-                Join our Subscribers List to Get Regular Update
+                Tham gia để nhận những thông báo về Tour giá rẻ hấp dẫn
             </h2>
             <p>
-                Subscribe Now. We will send you Best offer for your Trip
+                Hãy để lại email cho chúng tôi
             </p>
         </div>
         <form>
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="custom-input-group">
-                        <input type="email" class="form-control" placeholder="Enter your Email Here">
-                        <button class="appsLand-btn subscribe-btn">Subscribe</button>
+                        <input type="email" class="form-control" placeholder="Nhập email của bạn ở đây">
+                        <button class="appsLand-btn subscribe-btn">Đăng ký</button>
                         <div class="clearfix"></div>
                         <i class="fa fa-envelope"></i>
                     </div>
@@ -276,44 +275,42 @@
                                 tour<span>Nest</span>
                             </a>
                             <p>
-                                best travel agency
+                                du lịch Việt Nam
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="single-footer-item">
-                        <h2>link</h2>
+                        <h2>Đường dẫn</h2>
                         <div class="single-footer-txt">
-                            <p><a href="#">home</a></p>
-                            <p><a href="#">destination</a></p>
-                            <p><a href="#">spacial packages</a></p>
-                            <p><a href="#">special offers</a></p>
-                            <p><a href="#">blog</a></p>
-                            <p><a href="#">contacts</a></p>
+                            <p><a href="#">Trang chủ</a></p>
+                            <p><a href="#">Danh sách</a></p>
+                            <p><a href="#">Tour Packages</a></p>
+                            <p><a href="#">Subcription</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="single-footer-item">
-                        <h2>popular destination</h2>
+                        <h2>Địa điểm nổi tiếng</h2>
                         <div class="single-footer-txt">
-                            <p><a href="#">china</a></p>
-                            <p><a href="#">venezuela</a></p>
-                            <p><a href="#">brazil</a></p>
-                            <p><a href="#">australia</a></p>
-                            <p><a href="#">london</a></p>
+                            <p><a href="#">Hà Nội</a></p>
+                            <p><a href="#">Hồ Chí Minh</a></p>
+                            <p><a href="#">Đà Nẵng</a></p>
+                            <p><a href="#">Đà Lạt</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="single-footer-item text-center">
-                        <h2 class="text-left">contacts</h2>
+                        <h2 class="text-left">Liên hệ</h2>
                         <div class="single-footer-txt text-left">
-                            <p>+1 (300) 1234 6543</p>
-                            <p class="foot-email"><a href="#">info@tnest.com</a></p>
-                            <p>North Warnner Park 336/A</p>
-                            <p>Newyork, USA</p>
+                            <p>+84 123456789</p>
+                            <p class="foot-email"><a href="#">hieu.com</a></p>
+                            <p class="foot-email"><a href="#">kien.com</a></p>
+                            <p class="foot-email"><a href="#">tung.com</a></p>
+                            <p>Thủ Đức</p>
                         </div>
                     </div>
                 </div>
@@ -324,9 +321,8 @@
             <ul class="footer-social-links list-inline list-unstyled">
                 <li><a href="#" target="_blank" class="foot-icon-bg-1"><i class="fa fa-facebook"></i></a></li>
                 <li><a href="#" target="_blank" class="foot-icon-bg-2"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fa fa-github"></i></a></li>
             </ul>
-            <p>&copy; 2017 <a href="https://www.themesine.com">ThemeSINE</a>. All Right Reserved</p>
         </div>
         <div id="scroll-Top">
             <i class="fa fa-angle-double-up return-to-top" data-toggle="tooltip" data-placement="top" title=""
