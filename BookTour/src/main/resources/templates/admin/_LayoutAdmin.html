@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -27,27 +27,19 @@
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light l-58">
-            <i class="fa-solid fa-car"></i>
-            Quản lý tour
+            <i class="fa-solid fa-suitcase-rolling"></i>
+                Quản lý tour
         </div>
         <div class="list-group list-group-flush">
 
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/}">
                 <i class="fa-solid fa-house"></i>
                 Trang chủ
             </a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3"
-               href="/admin">
+               th:href="@{/admin}">
                 <i class="fa-solid fa-table-list"></i>
                 Danh sách tour
-            </a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
-                <i class="fa-solid fa-table"></i>
-                Danh sách TTSH
-            </a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Đăng xuất
             </a>
         </div>
     </div>
@@ -58,14 +50,18 @@
                 <button class="btn btn-outline" id="sidebarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div>
-                    <i class="fa-solid fa-user pd-4"></i>
-                    Xin chào
-                    <strong style="padding-left:4px"></strong>
-                    !!
+                <div sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user pd-4"></i>Xin chào User !!
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
+
         <div layout:fragment="content" class="container body-content">
         </div>
     </div>

@@ -65,12 +65,11 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="smooth-menu"><a href="#home">Trang chủ</a></li>
-                                <li><a href="/tour/view-list-tours">Danh sách</a></li>
                                 <li class="smooth-menu"><a href="#pack">Tour packages</a></li>
                                 <li class="smooth-menu"><a href="#subs">Subcription</a></li>
-                                <li>
-                                    <a class="book-btn" href="login.html">Login</a>
-                                </li>
+                                <li><a th:href="@{/tour/view-list-tours}">Danh sách</a></li>
+                                <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+                                <li sec:authorize="isAuthenticated()"></li>
                             </ul>
                         </div>
                     </div>
