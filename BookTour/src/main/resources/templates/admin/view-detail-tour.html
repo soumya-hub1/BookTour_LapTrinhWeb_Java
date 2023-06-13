@@ -1,12 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/_LayoutAdmin}">
+
 <head>
     <meta charset="UTF-8">
+
     <title>TourNest - Detail tour</title>
 </head>
+
 <body>
+
 <div>
     <div layout:fragment="content" class="container">
         <div class="row">
@@ -47,8 +52,7 @@
             <div class="row mb-2">
                 <h3 style="color: red;"
                     th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày'">
-                    thời gian
-                    về trừ thời gian đi</h3>
+                    thời gian về trừ thời gian đi</h3>
             </div>
             <div class="row mb-2">
                 <p th:text="${tour.description}">Miêu tả</p>
@@ -56,5 +60,7 @@
         </div>
     </div>
 </div>
+
 </body>
+
 </html>
