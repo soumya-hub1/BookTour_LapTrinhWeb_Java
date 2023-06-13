@@ -69,7 +69,7 @@
                                 <li class="smooth-menu"><a href="#subs">Subcription</a></li>
                                 <li><a th:href="@{/tour/view-list-tours}">Danh sách</a></li>
                                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
-                                <li sec:authorize="isAuthenticated()"></li>
+                                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
                             </ul>
                         </div>
                     </div>
