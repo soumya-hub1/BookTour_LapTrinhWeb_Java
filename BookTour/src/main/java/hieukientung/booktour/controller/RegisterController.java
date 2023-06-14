@@ -33,13 +33,13 @@ public class RegisterController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping
-    public String showRegisterForm(Model model) {
+    public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping
-    public String registerUser(@ModelAttribute("user") @Valid User user, Model model) {
+    public String register(@ModelAttribute("user") @Valid User user, Model model) {
         // check if username already exists
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
             model.addAttribute("usernameExists", true);

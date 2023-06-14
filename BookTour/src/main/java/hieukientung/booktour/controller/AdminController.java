@@ -37,7 +37,7 @@ public class AdminController {
     public String getTourById(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
         Tour tour = tourService.getTourById(id);
         if (tour == null) {
-            return "error-404";
+            return "/error/404-pagenotfound";
         }
         model.addAttribute("tour", tour);
         return "admin/view-detail-tour";
