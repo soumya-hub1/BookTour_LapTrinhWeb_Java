@@ -4,13 +4,22 @@ import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.TourService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/admin")
 @Controller
@@ -28,7 +37,13 @@ public class AdminController {
     }
 
     @PostMapping("/save")
-    public String saveTour(@ModelAttribute("tour") Tour tour) {
+    public String saveTour(@ModelAttribute("tour") @Valid Tour tour, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        if (!imageFile.isEmpty()) {
+            String fileName = imageFile.getOriginalFilename();
+            Path path = Paths.get("target/classes/static/assets/images/detail-tour/" + fileName);
+            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            tour.setImage("/assets/images/detail-tour/" + fileName);
+        }
         tourService.saveTour(tour);
         return "redirect:/admin";
     }
