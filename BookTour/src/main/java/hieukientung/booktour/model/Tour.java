@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -52,6 +53,9 @@ public class Tour {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_type_id")
     private TourType tourType;
+
+    @Transient
+    private MultipartFile imageFile;
 
     @Column(name = "image", length = 250)
     private String image;
