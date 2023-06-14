@@ -27,9 +27,8 @@ public class TourController {
     @GetMapping("/view-detail-tour/{id}")
     public String getTourById(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);
-
         if (tour == null) {
-            return "error/error-404";
+            return "/error/404-pagenotfound";
         }
         model.addAttribute("tour", tour);
         return "view-detail-tour";

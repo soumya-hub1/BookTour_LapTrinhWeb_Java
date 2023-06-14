@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Trang chủ</a>
+        <a class="navbar-brand" th:href="@{/}">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,13 +32,14 @@
                     <form th:action="@{/register}" th:object="${user}" method="post" class="form-horizontal">
                         <div class="form-group mb-3">
                             <label class="control-label" for="username">Tên đăng nhập:</label>
-                            <input class="form-control" type="text" id="username" name="username" th:field="*{username}" placeholder="Type a new username"
+                            <input class="form-control" type="text" id="username" name="username" th:field="*{username}"
+                                   placeholder="Type a new username"
                                    required>
                         </div>
                         <div class="form-group mb-3">
                             <label class="control-label" for="password">Mật khẩu:</label>
                             <input class="form-control" type="password" id="password" name="password"
-                                   th:field="*{password}"  placeholder="Type a new password" required>
+                                   th:field="*{password}" placeholder="Type a new password" required>
                         </div>
                         <div class="form-group mb-3">
                             <label class="control-label" for="firstName">Tên và tên lót:</label>
@@ -60,7 +61,7 @@
                             <input class="form-control" type="text" id="email" name="email"
                                    th:field="*{email}" placeholder="Type your email" required>
                         </div>
-<!--                        Birthday-->
+                        <!--                        Birthday-->
                         <div class="form-group mb-3">
                             <label class="control-label" for="address">Địa chỉ:</label>
                             <input class="form-control" type="text" id="address" name="address"
@@ -68,10 +69,14 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="control-label" for="sex">Giới tính:</label>
-                            <input class="form-control" type="text" id="sex" name="sex"
-                                   th:field="*{sex}" placeholder="Type your sex" required>
+                            <select class="form-control" id="sex" name="sex" th:field="*{sex}" required>
+                                <option value="">Select your sex</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
                         </div>
-<!--                        image-->
+                        <!--                        image-->
 
                         <div class="form-group mb-3">
                             <button class="btn btn-primary" type="submit">Đăng ký</button>
