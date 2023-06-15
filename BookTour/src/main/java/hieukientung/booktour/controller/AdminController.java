@@ -129,12 +129,14 @@ public class AdminController {
 
         String subject = "<p><b>Tour name</b>" + tourName + "<p>";
         String content = "<p><b>Tour Description</b>" + tourDescription + "<p>";
+
         helper.setFrom("sneakiedward@gmail.com", "TourNest");
         helper.setTo("toutnest2425@gmail.com");
         helper.setSubject(subject);
         helper.setText(content, true);
 
         mailSender.send(message);
+
         return "/admin/send-mail-message";
     }
 }

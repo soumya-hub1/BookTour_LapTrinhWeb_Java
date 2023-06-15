@@ -22,11 +22,11 @@
                     <form th:action="@{/admin/send-mail}" method="post">
                         <div class="form-group mb-3">
                             <label for="tourName" class="form-label">Tour Name</label>
-                            <input type="text" class="form-control" id="tourName" placeholder="Enter tour name">
+                            <input type="text" class="form-control" id="tourName" name="tourName" placeholder="Enter tour name">
                         </div>
                         <div class="form-group mb-3">
                             <label for="tourDescription" class="form-label">Tour Description</label>
-                            <textarea class="form-control" id="tourDescription" rows="3" placeholder="Enter tour description"></textarea>
+                            <textarea class="form-control" id="tourDescription" rows="3" name="tourDescription" placeholder="Enter tour description"></textarea>
                         </div>
 <!--                        <div class="form-group mb-3">-->
 <!--                            <label for="attachmentFile" class="form-label">Attachment File</label>-->
