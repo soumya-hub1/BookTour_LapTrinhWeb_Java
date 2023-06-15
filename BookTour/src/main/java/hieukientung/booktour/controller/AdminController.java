@@ -3,10 +3,15 @@ package hieukientung.booktour.controller;
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.TourService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,6 +35,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     @GetMapping(value = {"", "/view-list-tours"})
@@ -102,5 +111,30 @@ public class AdminController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("listTours", listTours);
         return "admin/view-list-tours";
+    }
+
+    @GetMapping("/send-mail")
+    public String showSendMail(){
+
+        return "admin/send-mail";
+    }
+
+    @PostMapping("/send-mail")
+    public String submitSendMail(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        String tourName = request.getParameter("tourName");
+        String tourDescription= request.getParameter("tourDescription");
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        String subject = "<p><b>Tour name</b>" + tourName + "<p>";
+        String content = "<p><b>Tour Description</b>" + tourDescription + "<p>";
+        helper.setFrom("sneakiedward@gmail.com", "TourNest");
+        helper.setTo("toutnest2425@gmail.com");
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+        return "/admin/send-mail-message";
     }
 }
