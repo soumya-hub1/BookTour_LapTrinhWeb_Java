@@ -66,13 +66,24 @@
                 <div sec:authorize="isAuthenticated()" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user pd-4"></i>Xin chào
-                        <b th:text="${#authentication.principal.username}"></b>
+                        Xin chào <b th:text="${#authentication.principal.username}"></b> đến với trang quản lý tour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/admin/profile}">Quản lý tài khoản</a></li>
-                        <li><a class="dropdown-item" th:href="@{/admin/change-password}">Đổi mật khẩu</a></li>
-                        <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/admin/profile}">
+                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/admin/change-password}">
+                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/logout}">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
