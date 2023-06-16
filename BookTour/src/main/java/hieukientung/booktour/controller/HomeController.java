@@ -1,11 +1,15 @@
 package hieukientung.booktour.controller;
 
+import hieukientung.booktour.model.Email;
 import hieukientung.booktour.model.Tour;
+import hieukientung.booktour.repository.EmailRepository;
 import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +19,9 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private EmailRepository emailRepository;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -34,6 +41,22 @@ public class HomeController {
         List<Tour> tourCopy = new ArrayList<>(allTours);
         Collections.shuffle(tourCopy);
         return tourCopy.subList(0, count);
+    }
+
+    @PostMapping("/")
+    public String saveEmail(@RequestParam("email") String email, Model model) {
+        Email existingEmail = emailRepository.findByEmail(email);
+        if (existingEmail != null) {
+            model.addAttribute("message", "Email đã tồn tại!");
+            model.addAttribute("success", false);
+        } else {
+            Email newEmail = new Email();
+            newEmail.setEmail(email);
+            emailRepository.save(newEmail);
+            model.addAttribute("message", "Email đã được lưu thành công!");
+            model.addAttribute("success", true);
+        }
+        return "index";
     }
 }
 
