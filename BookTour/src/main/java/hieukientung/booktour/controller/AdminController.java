@@ -1,31 +1,28 @@
 package hieukientung.booktour.controller;
 
+import hieukientung.booktour.model.Role;
 import hieukientung.booktour.model.Tour;
+import hieukientung.booktour.model.User;
+import hieukientung.booktour.repository.RoleRepository;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.TourService;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RequestMapping("/admin")
 @Controller
@@ -37,8 +34,7 @@ public class AdminController {
     private AdminService adminService;
 
     @Autowired
-    private JavaMailSender mailSender;
-
+    private RoleRepository roleRepository;
 
     @GetMapping(value = {"", "/view-list-tours"})
     public String getAllTours(Model model) {
@@ -58,7 +54,7 @@ public class AdminController {
     }
 
     @GetMapping("/view-detail-tour/{id}")
-    public String getTourById(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+    public String getTourById(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);
         if (tour == null) {
             return "/error/404-pagenotfound";
@@ -113,30 +109,27 @@ public class AdminController {
         return "admin/view-list-tours";
     }
 
-    @GetMapping("/send-mail")
-    public String showSendMail(){
-
-        return "admin/send-mail";
+    @GetMapping("/profile")
+    public String viewProfile(Model model, Principal principal) {
+        String username = principal.getName();
+        User admin = adminService.getByUsername(username);
+        model.addAttribute("admin", admin);
+        return "admin/update-profile";
     }
 
-    @PostMapping("/send-mail")
-    public String submitSendMail(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        String tourName = request.getParameter("tourName");
-        String tourDescription= request.getParameter("tourDescription");
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        String subject = "<p><b>Tour name</b>" + tourName + "<p>";
-        String content = "<p><b>Tour Description</b>" + tourDescription + "<p>";
-
-        helper.setFrom("toutnest2425@gmail.com", "TourNest");
-        helper.setTo("sneakiedward@gmail.com");
-        helper.setSubject(subject);
-        helper.setText(content, true);
-
-        mailSender.send(message);
-
-        return "/admin/send-mail-message";
+    @PostMapping("/update-profile")
+    public String updateProfile(@ModelAttribute("admin") @Valid User admin, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        if (!imageFile.isEmpty()) {
+            String fileName = imageFile.getOriginalFilename();
+            Path path = Paths.get("target/classes/static/assets/images/admin/" + fileName);
+            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            admin.setImage("/assets/images/admin/" + fileName);
+            Optional<Role> existingRole = roleRepository.findByName("ADMIN");
+            if (existingRole.isPresent()) {
+                admin.setRoles(Collections.singleton(existingRole.get()));
+            }
+        }
+        adminService.saveUser(admin);
+        return "redirect:/admin/profile";
     }
 }
