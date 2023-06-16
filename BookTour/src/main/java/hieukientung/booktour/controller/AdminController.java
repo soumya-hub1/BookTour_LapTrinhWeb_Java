@@ -1,9 +1,11 @@
 package hieukientung.booktour.controller;
 
+import hieukientung.booktour.model.Role;
 import hieukientung.booktour.model.Tour;
+import hieukientung.booktour.model.User;
+import hieukientung.booktour.repository.RoleRepository;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.TourService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,15 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RequestMapping("/admin")
 @Controller
@@ -30,6 +33,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping(value = {"", "/view-list-tours"})
     public String getAllTours(Model model) {
@@ -49,7 +54,7 @@ public class AdminController {
     }
 
     @GetMapping("/view-detail-tour/{id}")
-    public String getTourById(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+    public String getTourById(@PathVariable("id") Long id, Model model) {
         Tour tour = tourService.getTourById(id);
         if (tour == null) {
             return "/error/404-pagenotfound";
@@ -102,5 +107,29 @@ public class AdminController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("listTours", listTours);
         return "admin/view-list-tours";
+    }
+
+    @GetMapping("/profile")
+    public String viewProfile(Model model, Principal principal) {
+        String username = principal.getName();
+        User admin = adminService.getByUsername(username);
+        model.addAttribute("admin", admin);
+        return "admin/update-profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(@ModelAttribute("admin") @Valid User admin, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        if (!imageFile.isEmpty()) {
+            String fileName = imageFile.getOriginalFilename();
+            Path path = Paths.get("target/classes/static/assets/images/admin/" + fileName);
+            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            admin.setImage("/assets/images/admin/" + fileName);
+            Optional<Role> existingRole = roleRepository.findByName("ADMIN");
+            if (existingRole.isPresent()) {
+                admin.setRoles(Collections.singleton(existingRole.get()));
+            }
+        }
+        adminService.saveUser(admin);
+        return "redirect:/admin/profile";
     }
 }
