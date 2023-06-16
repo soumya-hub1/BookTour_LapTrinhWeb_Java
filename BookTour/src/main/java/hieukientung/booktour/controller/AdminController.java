@@ -5,6 +5,7 @@ import hieukientung.booktour.model.Role;
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.model.User;
 import hieukientung.booktour.repository.RoleRepository;
+import hieukientung.booktour.service.AccountService;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.EmailService;
 import hieukientung.booktour.service.TourService;
@@ -41,6 +42,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -162,7 +166,7 @@ public class AdminController {
     @GetMapping("/profile")
     public String viewProfile(Model model, Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         model.addAttribute("admin", admin);
         return "admin/update-profile";
     }
@@ -179,14 +183,14 @@ public class AdminController {
                 admin.setRoles(Collections.singleton(existingRole.get()));
             }
         }
-        adminService.saveUser(admin);
+        accountService.saveUser(admin);
         return "redirect:/admin/profile";
     }
 
     @GetMapping("/change-password")
     public String changePassword(Model model, Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         model.addAttribute("admin", admin);
         return "admin/change-password";
     }
@@ -196,10 +200,10 @@ public class AdminController {
                                  @RequestParam("confirmPassword") String confirmPassword,
                                  Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         if (newPassword.equals(confirmPassword)) {
             admin.setPassword(passwordEncoder.encode(newPassword));
-            adminService.saveUser(admin);
+            accountService.saveUser(admin);
         }
         return "redirect:/admin/change-password";
     }
