@@ -1,10 +1,12 @@
 package hieukientung.booktour.controller;
 
+import hieukientung.booktour.model.Email;
 import hieukientung.booktour.model.Role;
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.model.User;
 import hieukientung.booktour.repository.RoleRepository;
 import hieukientung.booktour.service.AdminService;
+import hieukientung.booktour.service.EmailService;
 import hieukientung.booktour.service.TourService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -45,6 +47,9 @@ public class AdminController {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -133,18 +138,23 @@ public class AdminController {
         String tourName = request.getParameter("tourName");
         String tourDescription = request.getParameter("tourDescription");
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+        List<Email> emails = emailService.getAllEmails();
+        System.out.println(emails);
 
-        String subject = "<p><b>Tour name</b>" + tourName + "<p>";
-        String content = "<p><b>Tour Description</b>" + tourDescription + "<p>";
+        for (Email email : emails) {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("toutnest2425@gmail.com", "TourNest");
-        helper.setTo("sneakiedward@gmail.com");
-        helper.setSubject(subject);
-        helper.setText(content, true);
+            String subject = "Tour name:" + tourName;
+            String content = "<p><b>Tour Description</b>:" + tourDescription + "<p>";
 
-        mailSender.send(message);
+            helper.setFrom("toutnest2425@gmail.com", "TourNest");
+            helper.setTo(email.getEmail());
+            helper.setSubject(subject);
+            helper.setText(content, true);
+
+            mailSender.send(message);
+        }
 
         return "/admin/send-mail-message";
     }
