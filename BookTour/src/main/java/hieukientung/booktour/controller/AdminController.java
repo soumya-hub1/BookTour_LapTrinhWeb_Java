@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,9 @@ public class AdminController {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = {"", "/view-list-tours"})
     public String getAllTours(Model model) {
@@ -167,5 +171,26 @@ public class AdminController {
         }
         adminService.saveUser(admin);
         return "redirect:/admin/profile";
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword(Model model, Principal principal) {
+        String username = principal.getName();
+        User admin = adminService.getByUsername(username);
+        model.addAttribute("admin", admin);
+        return "admin/change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("password") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Principal principal) {
+        String username = principal.getName();
+        User admin = adminService.getByUsername(username);
+        if (newPassword.equals(confirmPassword)) {
+            admin.setPassword(passwordEncoder.encode(newPassword));
+            adminService.saveUser(admin);
+        }
+        return "redirect:/admin/change-password";
     }
 }
