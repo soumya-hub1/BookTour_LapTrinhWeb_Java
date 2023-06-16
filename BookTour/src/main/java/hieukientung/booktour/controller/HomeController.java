@@ -47,14 +47,12 @@ public class HomeController {
     public String saveEmail(@RequestParam("email") String email, Model model) {
         Email existingEmail = emailRepository.findByEmail(email);
         if (existingEmail != null) {
-            model.addAttribute("message", "Email đã tồn tại!");
-            model.addAttribute("success", false);
+            model.addAttribute("errorMessage", "Email đã tồn tại!");
         } else {
             Email newEmail = new Email();
             newEmail.setEmail(email);
             emailRepository.save(newEmail);
-            model.addAttribute("message", "Email đã được lưu thành công!");
-            model.addAttribute("success", true);
+            model.addAttribute("successMessage", "Cảm ơn bạn đã đăng ký!");
         }
         return "index";
     }
