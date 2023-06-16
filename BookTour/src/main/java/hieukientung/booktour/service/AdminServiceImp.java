@@ -23,12 +23,6 @@ public class AdminServiceImp implements AdminService {
     @Autowired
     private TourTypeRepository tourTypeRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public List<Discount> getAllDiscount() {
         return discountRepository.findAll();
@@ -37,15 +31,5 @@ public class AdminServiceImp implements AdminService {
     @Override
     public List<TourType> getAllTourType() {
         return tourTypeRepository.findAll();
-    }
-
-    @Override
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
-    }
-
-    @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
     }
 }
