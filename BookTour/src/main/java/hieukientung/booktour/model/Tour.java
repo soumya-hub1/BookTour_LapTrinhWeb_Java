@@ -19,8 +19,8 @@ public class Tour {
     @Column(name = "tour_id", nullable = false)
     private Long id;
 
-    @Size(max = 50)
-    @Column(name = "tour_name", length = 50)
+    @Size(max = 200)
+    @Column(name = "tour_name", length = 200)
     private String tourName;
 
     @Column(name = "price", precision = 18, scale = 2)
