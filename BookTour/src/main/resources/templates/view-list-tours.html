@@ -37,13 +37,18 @@
         .navbar-custom .navbar-toggler {
           color: #00d8ff;
         }
+
+        .card-footer{
+            display:flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container">
-        <a class="navbar-brand" href="#">Tour<span class="logo-nest">Nest</span></a>
+        <a class="navbar-brand" th:href="@{/}">Tour<span class="logo-nest">Nest</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -77,10 +82,14 @@
                         <b th:text=" 'từ ' + ${item.departure.departureName} + ' đến ' + ${item.destination.destinationName}"></b>
                     </div>
                     <h3 class="card-text" th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + ' ngày'"></h3>
-                    <p class="card-text" th:text="${item.description}"></p>
+                    <div>
+                        <p class="card-text" th:if="${#strings.length(item.description) > 40}"
+                           th:text="${#strings.substring(item.description, 0, 40) + '...'}" style="margin-bottom:16px"></p>
+                        <p th:if="${#strings.length(item.description) <= 40}" th:text="${item.description}"></p>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Book now</a>
+                <div class="card-footer" >
+                    <a href="#" class="btn btn-outline-primary">Đặt ngay</a>
                     <a th:href="@{/tour/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-dark">Xem chi
                         tiết tour</a>
                 </div>
