@@ -64,12 +64,16 @@ public class AdminController {
     }
 
     @PostMapping("/save")
-    public String saveTour(@ModelAttribute("tour") @Valid Tour tour, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public String saveTour(@ModelAttribute("tour") @Valid Tour tour,
+                           @RequestParam("oldImage") String oldImage,
+                           @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         if (!imageFile.isEmpty()) {
             String fileName = imageFile.getOriginalFilename();
             Path path = Paths.get("target/classes/static/assets/images/detail-tour/" + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             tour.setImage("/assets/images/detail-tour/" + fileName);
+        } else {
+            tour.setImage(oldImage);
         }
         tourService.saveTour(tour);
         return "redirect:/admin";
@@ -172,13 +176,20 @@ public class AdminController {
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute("admin") @Valid User admin, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public String updateProfile(@ModelAttribute("admin") @Valid User admin,
+                                @RequestParam("oldImage") String oldImage,
+                                @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        Optional<Role> existingRole = roleRepository.findByName("ADMIN");
         if (!imageFile.isEmpty()) {
             String fileName = imageFile.getOriginalFilename();
             Path path = Paths.get("target/classes/static/assets/images/admin/" + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             admin.setImage("/assets/images/admin/" + fileName);
-            Optional<Role> existingRole = roleRepository.findByName("ADMIN");
+            if (existingRole.isPresent()) {
+                admin.setRoles(Collections.singleton(existingRole.get()));
+            }
+        } else {
+            admin.setImage(oldImage);
             if (existingRole.isPresent()) {
                 admin.setRoles(Collections.singleton(existingRole.get()));
             }
