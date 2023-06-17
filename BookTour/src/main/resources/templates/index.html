@@ -3,7 +3,6 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml">
 
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -269,40 +268,81 @@
             <h2>Tour Packages</h2>
         </div>
         <div class="packages-content">
-            <div class="row">
-                <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
-                    <div class="single-package-item">
-                        <img src="/assets/images/packages/p2.jpg" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3 th:text="${tour.tourName}"></h3>
-                            <br>
-                            <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
-                            <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1}"></span>N
-                            <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)}"></span>Đ
-                            <span class="pull-right" th:text="${tour.price}"></span>
-                            <div class="packages-para">
-                                <i th:if="${#strings.length(tour.description) > 45}"
-                                   th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
-                                <i th:if="${#strings.length(tour.description) <= 45}" th:text="${tour.description}"></i>
+            <div class="div">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
+                        <div class="single-package-item">
+                            <img src="/assets/images/packages/p2.jpg" alt="package-place">
+                            <div class="single-package-item-txt">
+                                <h3 th:text="${tour.tourName}"></h3>
+                                <br>
+                                <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1}"></span>N
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)}"></span>Đ
+                                <span class="pull-right" th:text="${tour.price}"></span>
+                                <div class="packages-para">
+                                    <i th:if="${#strings.length(tour.description) > 45}"
+                                       th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
+                                    <i th:if="${#strings.length(tour.description) <= 45}" th:text="${tour.description}"></i>
+                                </div>
+                                <div class="packages-para">
+                                    Nơi khởi hành:
+                                    <span th:text="${tour.departure.departureName}"></span>
+                                </div>
+                                <div class="packages-para">
+                                    Nơi kết thúc
+                                    <span th:text="${tour.destination.destinationName}"></span>
+                                </div>
+                                <br>
+                                <div class="about-btn">
+                                    <button class="about-view packages-btn">
+                                        Book Now
+                                    </button>
+                                </div>
+                                <div class="pull-right about-btn">
+                                    <button class="about-view packages-btn">
+                                        Detail
+                                    </button>
+                                </div>
                             </div>
-                            <div class="packages-para">
-                                Nơi khởi hành:
-                                <span th:text="${tour.departure.departureName}"></span>
-                            </div>
-                            <div class="packages-para">
-                                Nơi kết thúc
-                                <span th:text="${tour.destination.destinationName}"></span>
-                            </div>
-                            <br>
-                            <div class="about-btn">
-                                <button class="about-view packages-btn">
-                                    Book Now
-                                </button>
-                            </div>
-                            <div class="pull-right about-btn">
-                                <button class="about-view packages-btn">
-                                    Detail
-                                </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
+                        <div class="single-package-item">
+                            <img src="/assets/images/packages/p2.jpg" alt="package-place">
+                            <div class="single-package-item-txt">
+                                <h3 th:text="${tour.tourName}"></h3>
+                                <br>
+                                <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1}"></span>N
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)}"></span>Đ
+                                <span class="pull-right" th:text="${tour.price}"></span>
+                                <div class="packages-para">
+                                    <i th:if="${#strings.length(tour.description) > 45}"
+                                       th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
+                                    <i th:if="${#strings.length(tour.description) <= 45}" th:text="${tour.description}"></i>
+                                </div>
+                                <div class="packages-para">
+                                    Nơi khởi hành:
+                                    <span th:text="${tour.departure.departureName}"></span>
+                                </div>
+                                <div class="packages-para">
+                                    Nơi kết thúc
+                                    <span th:text="${tour.destination.destinationName}"></span>
+                                </div>
+                                <br>
+                                <div class="about-btn">
+                                    <button class="about-view packages-btn">
+                                        Book Now
+                                    </button>
+                                </div>
+                                <div class="pull-right about-btn">
+                                    <button class="about-view packages-btn">
+                                        Detail
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

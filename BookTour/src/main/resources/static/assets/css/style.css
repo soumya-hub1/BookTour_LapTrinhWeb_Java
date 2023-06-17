@@ -707,6 +707,12 @@ body {
     margin-right: 15px;
 }
 
+button.about-view.travel-btn {
+    height: 50px;
+}
+input.form-control.about-btn.travel-mrt-0 {
+    height: 50px;
+}
 /*-------------------------------------
         5. Service
 --------------------------------------*/
