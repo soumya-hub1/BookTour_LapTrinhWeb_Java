@@ -139,7 +139,6 @@ public class AdminController {
         String tourDescription = request.getParameter("tourDescription");
 
         List<Email> emails = emailService.getAllEmails();
-        System.out.println(emails);
 
         for (Email email : emails) {
             MimeMessage message = mailSender.createMimeMessage();
