@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/_LayoutAdmin}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8">
 
     <title>TourNest - Update Profile</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"
             integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+            integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
     <script src="/assets/js/Script.js"></script>
 </head>
 
 <body>
-<div layout:fragment="content">
+<div>
     <h2>Chỉnh sửa thông tin cá nhân</h2>
-    <form th:object="${admin}" th:action="@{/admin/update-profile}" method="post" enctype="multipart/form-data">
+    <form th:object="${user}" th:action="@{/update-profile}" method="post" enctype="multipart/form-data">
         <div class="container px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
@@ -24,11 +38,11 @@
                         <div class="card-header text-center">Hình ảnh hồ sơ</div>
                         <div class="card-body text-center">
                             <div class="aspect-ratio aspect-ratio-4x3">
-                                <img class="aspect-ratio-img img-fluid mb-4" id="imagePreview" th:src="${admin.image}"
+                                <img class="aspect-ratio-img img-fluid mb-4" id="imagePreview" th:src="${user.image}"
                                      alt="Failed to load image"/>
                             </div>
                             <input type="file" class="form-control" name="imageFile" id="imageFile" accept="image/*"/>
-                            <input type="hidden" name="oldImage" th:value="${admin.image}">
+                            <input type="hidden" name="oldImage" th:value="${user.image}">
                         </div>
                     </div>
                 </div>
@@ -41,9 +55,9 @@
                                     <label class="form-label small mb-1">Username</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="username" id="username"
-                                               th:value="${admin.username}" readonly/>
+                                               th:value="${user.username}" readonly/>
                                         <input type="text" class="form-control" name="password" id="password"
-                                               th:value="${admin.password}" hidden/>
+                                               th:value="${user.password}" hidden/>
                                     </div>
                                 </div>
 
@@ -51,7 +65,7 @@
                                     <label class="form-label small mb-1">Email</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="email" id="email"
-                                               th:value="${admin.email}" readonly/>
+                                               th:value="${user.email}" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +75,7 @@
                                     <label class="form-label small mb-1">Họ</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="lastName" id="lastName"
-                                               th:value="${admin.lastName}"/>
+                                               th:value="${user.lastName}"/>
                                     </div>
                                 </div>
 
@@ -69,7 +83,7 @@
                                     <label class="form-label small mb-1">Tên</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="firstName" id="firstName"
-                                               th:value="${admin.firstName}"/>
+                                               th:value="${user.firstName}"/>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +93,7 @@
                                     <label class="form-label small mb-1">Ngày sinh</label>
                                     <div class="col-md-10">
                                         <input type="date" class="form-control" name="birthday" id="birthday"
-                                               th:value="${admin.birthday}"/>
+                                               th:value="${user.birthday}"/>
                                     </div>
                                 </div>
 
@@ -87,7 +101,7 @@
                                     <label class="form-label small mb-1">Địa chỉ</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="address" id="address"
-                                               th:value="${admin.address}"/>
+                                               th:value="${user.address}"/>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +111,7 @@
                                     <label class="form-label small mb-1">Số điện thoại</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" name="phone" id="phone"
-                                               th:value="${admin.phone}"/>
+                                               th:value="${user.phone}"/>
                                     </div>
                                 </div>
 
@@ -106,9 +120,9 @@
                                     <div class="col-md-10">
                                         <select class="form-control" id="sex" name="sex">
                                             <option value="">Select your sex</option>
-                                            <option value="Nam" th:selected="${admin.sex == 'Nam'}">Nam</option>
-                                            <option value="Nữ" th:selected="${admin.sex == 'Nữ'}">Nữ</option>
-                                            <option value="Khác" th:selected="${admin.sex == 'Khác'}">Khác</option>
+                                            <option value="Nam" th:selected="${user.sex == 'Nam'}">Nam</option>
+                                            <option value="Nữ" th:selected="${user.sex == 'Nữ'}">Nữ</option>
+                                            <option value="Khác" th:selected="${user.sex == 'Khác'}">Khác</option>
                                         </select>
                                     </div>
                                 </div>

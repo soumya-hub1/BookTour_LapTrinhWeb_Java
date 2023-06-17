@@ -5,6 +5,7 @@ import hieukientung.booktour.model.Role;
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.model.User;
 import hieukientung.booktour.repository.RoleRepository;
+import hieukientung.booktour.service.AccountService;
 import hieukientung.booktour.service.AdminService;
 import hieukientung.booktour.service.EmailService;
 import hieukientung.booktour.service.TourService;
@@ -43,6 +44,9 @@ public class AdminController {
     private AdminService adminService;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -60,12 +64,16 @@ public class AdminController {
     }
 
     @PostMapping("/save")
-    public String saveTour(@ModelAttribute("tour") @Valid Tour tour, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public String saveTour(@ModelAttribute("tour") @Valid Tour tour,
+                           @RequestParam("oldImage") String oldImage,
+                           @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         if (!imageFile.isEmpty()) {
             String fileName = imageFile.getOriginalFilename();
             Path path = Paths.get("target/classes/static/assets/images/detail-tour/" + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             tour.setImage("/assets/images/detail-tour/" + fileName);
+        } else {
+            tour.setImage(oldImage);
         }
         tourService.saveTour(tour);
         return "redirect:/admin";
@@ -161,31 +169,38 @@ public class AdminController {
     @GetMapping("/profile")
     public String viewProfile(Model model, Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         model.addAttribute("admin", admin);
         return "admin/update-profile";
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute("admin") @Valid User admin, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public String updateProfile(@ModelAttribute("admin") @Valid User admin,
+                                @RequestParam("oldImage") String oldImage,
+                                @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        Optional<Role> existingRole = roleRepository.findByName("ADMIN");
         if (!imageFile.isEmpty()) {
             String fileName = imageFile.getOriginalFilename();
             Path path = Paths.get("target/classes/static/assets/images/admin/" + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             admin.setImage("/assets/images/admin/" + fileName);
-            Optional<Role> existingRole = roleRepository.findByName("ADMIN");
+            if (existingRole.isPresent()) {
+                admin.setRoles(Collections.singleton(existingRole.get()));
+            }
+        } else {
+            admin.setImage(oldImage);
             if (existingRole.isPresent()) {
                 admin.setRoles(Collections.singleton(existingRole.get()));
             }
         }
-        adminService.saveUser(admin);
+        accountService.saveUser(admin);
         return "redirect:/admin/profile";
     }
 
     @GetMapping("/change-password")
     public String changePassword(Model model, Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         model.addAttribute("admin", admin);
         return "admin/change-password";
     }
@@ -195,10 +210,10 @@ public class AdminController {
                                  @RequestParam("confirmPassword") String confirmPassword,
                                  Principal principal) {
         String username = principal.getName();
-        User admin = adminService.getByUsername(username);
+        User admin = accountService.getByUsername(username);
         if (newPassword.equals(confirmPassword)) {
             admin.setPassword(passwordEncoder.encode(newPassword));
-            adminService.saveUser(admin);
+            accountService.saveUser(admin);
         }
         return "redirect:/admin/change-password";
     }
