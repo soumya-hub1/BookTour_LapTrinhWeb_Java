@@ -164,9 +164,11 @@ body {
 }
 
 .logout-btn {
+
     text-decoration: none;
     color: #212529;
 }
 .logout-btn:hover {
     color: #0d6efd;
 }
+
