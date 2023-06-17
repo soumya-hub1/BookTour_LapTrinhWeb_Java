@@ -45,13 +45,20 @@ public class UserController {
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute("admin") @Valid User user, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+    public String updateProfile(@ModelAttribute("admin") @Valid User user,
+                                @RequestParam("oldImage") String oldImage,
+                                @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        Optional<Role> existingRole = roleRepository.findByName("USER");
         if (!imageFile.isEmpty()) {
             String fileName = imageFile.getOriginalFilename();
             Path path = Paths.get("target/classes/static/assets/images/user/" + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             user.setImage("/assets/images/user/" + fileName);
-            Optional<Role> existingRole = roleRepository.findByName("USER");
+            if (existingRole.isPresent()) {
+                user.setRoles(Collections.singleton(existingRole.get()));
+            }
+        } else {
+            user.setImage(oldImage);
             if (existingRole.isPresent()) {
                 user.setRoles(Collections.singleton(existingRole.get()));
             }
