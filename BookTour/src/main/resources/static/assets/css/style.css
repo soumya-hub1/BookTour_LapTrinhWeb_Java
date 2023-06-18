@@ -1434,6 +1434,18 @@ input.form-control.about-btn.travel-mrt-0 {
     vertical-align: sub;
 }
 
+.email-message{
+    display:flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+span#errorMessage {
+    border-radius: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 /*-------------------------------------
         13.  Footer-copyright
 --------------------------------------*/
