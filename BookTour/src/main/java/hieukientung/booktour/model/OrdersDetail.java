@@ -21,4 +21,8 @@ public class OrdersDetail {
     @ManyToOne
     @JoinColumn(name = "orders_id")
     private Orders order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_id")
+    private Tour tour;
 }
