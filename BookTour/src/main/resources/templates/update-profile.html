@@ -1,195 +1,131 @@
 <!DOCTYPE html>
 
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
 
 <head>
     <meta charset="UTF-8">
 
     <title>TourNest - Update Profile</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"
             integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
             integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
     <script src="/assets/js/Script.js"></script>
-    <style>
-        .navbar-custom {
-            background-color: rgba(77, 78, 84, 1);
-        }
-
-        .navbar-custom .navbar-brand {
-            color: white;
-            font-weight: bold;
-        }
-
-        .navbar-custom .navbar-nav .nav-link {
-            color: white;
-        }
-
-        .navbar-custom .navbar-brand .logo-nest,
-        .navbar-custom .navbar-nav .nav-link:hover {
-            color: #00d8ff;
-        }
-
-        .navbar-custom .navbar-toggler {
-          color: #00d8ff;
-        }
-
-        .card-footer{
-            display:flex;
-            justify-content: space-between;
-        }
-    </style>
 </head>
 
 <body>
-<div>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container">
-            <a class="navbar-brand" th:href="@{/}">Tour<span class="logo-nest">Nest</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
+<div layout:fragment="content">
+    <h2 class="mt-2">Chỉnh sửa thông tin cá nhân</h2>
+    <form th:object="${user}" th:action="@{/update-profile}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header text-center">Hình ảnh hồ sơ</div>
+                    <div class="card-body text-center">
+                        <div class="aspect-ratio aspect-ratio-4x3">
+                            <img class="aspect-ratio-img img-fluid mb-4" id="imagePreview" th:src="${user.image}"
+                                 alt="Failed to load image"/>
+                        </div>
+                        <input type="file" class="form-control" name="imageFile" id="imageFile" accept="image/*"/>
+                        <input type="hidden" name="oldImage" th:value="${user.image}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header text-center hồ sơ">Thông tin</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Username</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="username" id="username"
+                                           th:value="${user.username}" readonly/>
+                                    <input type="text" class="form-control" name="password" id="password"
+                                           th:value="${user.password}" hidden/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Email</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="email" id="email"
+                                           th:value="${user.email}" readonly/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Họ</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="lastName" id="lastName"
+                                           th:value="${user.lastName}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Tên</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="firstName" id="firstName"
+                                           th:value="${user.firstName}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Ngày sinh</label>
+                                <div class="col-md-10">
+                                    <input type="date" class="form-control" name="birthday" id="birthday"
+                                           th:value="${user.birthday}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Địa chỉ</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="address" id="address"
+                                           th:value="${user.address}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Số điện thoại</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="phone" id="phone"
+                                           th:value="${user.phone}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="form-label small mb-1">Giới tính</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="sex" name="sex">
+                                        <option value="">Select your sex</option>
+                                        <option value="Nam" th:selected="${user.sex == 'Nam'}">Nam</option>
+                                        <option value="Nữ" th:selected="${user.sex == 'Nữ'}">Nữ</option>
+                                        <option value="Khác" th:selected="${user.sex == 'Khác'}">Khác</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-    <div class="container">
-        <h2>Chỉnh sửa thông tin cá nhân</h2>
-        <form th:object="${user}" th:action="@{/update-profile}" method="post" enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-xl-4">
-                    <div class="card mb-4 mb-xl-0">
-                        <div class="card-header text-center">Hình ảnh hồ sơ</div>
-                        <div class="card-body text-center">
-                            <div class="aspect-ratio aspect-ratio-4x3">
-                                <img class="aspect-ratio-img img-fluid mb-4" id="imagePreview" th:src="${user.image}"
-                                     alt="Failed to load image"/>
-                            </div>
-                            <input type="file" class="form-control" name="imageFile" id="imageFile" accept="image/*"/>
-                            <input type="hidden" name="oldImage" th:value="${user.image}">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-8">
-                    <div class="card mb-4">
-                        <div class="card-header text-center hồ sơ">Thông tin</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Username</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="username" id="username"
-                                               th:value="${user.username}" readonly/>
-                                        <input type="text" class="form-control" name="password" id="password"
-                                               th:value="${user.password}" hidden/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Email</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="email" id="email"
-                                               th:value="${user.email}" readonly/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Họ</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="lastName" id="lastName"
-                                               th:value="${user.lastName}"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Tên</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="firstName" id="firstName"
-                                               th:value="${user.firstName}"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Ngày sinh</label>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control" name="birthday" id="birthday"
-                                               th:value="${user.birthday}"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Địa chỉ</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="address" id="address"
-                                               th:value="${user.address}"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Số điện thoại</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="phone" id="phone"
-                                               th:value="${user.phone}"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 gx-3 mb-3">
-                                    <label class="form-label small mb-1">Giới tính</label>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id="sex" name="sex">
-                                            <option value="">Select your sex</option>
-                                            <option value="Nam" th:selected="${user.sex == 'Nam'}">Nam</option>
-                                            <option value="Nữ" th:selected="${user.sex == 'Nữ'}">Nữ</option>
-                                            <option value="Khác" th:selected="${user.sex == 'Khác'}">Khác</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-6 gx-3 mt-3">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu thông tin" class="btn btn-primary"/>
             </div>
-            <div class="col-md-6 gx-3 mt-3">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Lưu thông tin" class="btn btn-primary"/>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 </div>
 </body>
 
