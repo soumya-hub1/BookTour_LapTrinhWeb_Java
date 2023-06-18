@@ -31,6 +31,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/ReceiveMail.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/bootsnav.js"></script>
@@ -281,7 +282,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
                     <div class="single-package-item">
-                        <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
+                        <a th:href="@{/tour/view-detail-tour/{id}(id=${tour.id})}">
                             <img th:src="${tour.image}" alt="package-place">
                         </a>
                         <div class="single-package-item-txt">
@@ -307,7 +308,8 @@
                                 Nơi kết thúc
                                 <span th:text="${tour.destination.destinationName}"></span>
                             </div>
-                            <div class="packages-para" th:text="${#numbers.formatDecimal(tour.price, 0, 'COMMA', 2, 'POINT')}"></div>
+                            <div class="packages-para"
+                                 th:text="${#numbers.formatDecimal(tour.price, 0, 'COMMA', 2, 'POINT')}"></div>
 
                             <br>
                             <div class="about-btn">
@@ -353,6 +355,9 @@
                         <button type="submit" class="appsLand-btn subscribe-btn">Đăng ký</button>
                         <div class="clearfix"></div>
                         <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="custom-input-group">
+                        <span id="errorMessage"></span>
                     </div>
                 </div>
             </div>

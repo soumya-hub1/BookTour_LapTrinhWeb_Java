@@ -5,6 +5,8 @@ import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.repository.EmailRepository;
 import hieukientung.booktour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,16 +46,15 @@ public class HomeController {
     }
 
     @PostMapping("/")
-    public String saveEmail(@RequestParam("email") String email, Model model) {
+    public ResponseEntity<String> saveEmail(@RequestParam("email") String email) {
         Email existingEmail = emailRepository.findByEmail(email);
         if (existingEmail != null) {
-            model.addAttribute("errorMessage", "Email đã tồn tại!");
+            return new ResponseEntity<>("Email đã tồn tại!", HttpStatus.BAD_REQUEST);
         } else {
             Email newEmail = new Email();
             newEmail.setEmail(email);
             emailRepository.save(newEmail);
-            model.addAttribute("successMessage", "Cảm ơn bạn đã đăng ký!");
+            return new ResponseEntity<>("Cảm ơn bạn đã đăng ký!", HttpStatus.OK);
         }
-        return "email-message";
     }
 }
