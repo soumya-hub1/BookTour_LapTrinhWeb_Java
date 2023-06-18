@@ -40,8 +40,14 @@
                         <p th:if="${#strings.length(item.description) <= 40}" th:text="${item.description}"></p>
                     </div>
                 </div>
+
                 <div class="card-footer">
-                    <a href="#" class="btn btn-outline-primary">Đặt ngay</a>
+                    <!--                    <span sec:authorize="hasAuthority('USER')">-->
+                    <form th:action="@{/cart/add/{id}(id=${item.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Book now</button>
+                    </form>
+                    <!--                </span>-->
+
                     <a th:href="@{/tour/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-dark">Xem chi
                         tiết tour</a>
                 </div>
