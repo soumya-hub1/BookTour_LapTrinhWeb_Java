@@ -22,20 +22,33 @@
             <div class="card mb-3">
                 <img th:src="${item.image}" class="card-img-top" alt="Tour 1">
                 <div class="card-body">
-                    <h1 class="card-title" th:text="${item.tourName}">Tên tour</h1>
-                    <div class="row card-text">
-                        <b th:text=" 'từ ' + ${item.departure.departureName} + ' đến ' + ${item.destination.destinationName}"></b>
+                    <div>
+                        <span th:text="${#temporals.format(item.dateStart, 'dd/MM/yyyy')}"></span> -
+                        <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + 'N' +
+                                       ${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd)} + 'Đ'">
+                        </span>
                     </div>
-                    <h3 class="card-text" th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + ' ngày'"></h3>
+                    <h3 class="card-title" th:text="${item.tourName}"></h3>
+                    <br>
                     <div>
                         <p class="card-text" th:if="${#strings.length(item.description) > 40}"
-                           th:text="${#strings.substring(item.description, 0, 40) + '...'}" style="margin-bottom:16px"></p>
+                           th:text="${#strings.substring(item.description, 0, 40) + '...'}"
+                           style="margin-bottom:16px"></p>
                         <p th:if="${#strings.length(item.description) <= 40}" th:text="${item.description}"></p>
                     </div>
+                    <div>
+                        Nơi khởi hành:
+                        <span th:text="${item.departure.departureName}"></span>
+                    </div>
+                    <div>
+                        Nơi kết thúc
+                        <span th:text="${item.destination.destinationName}"></span>
+                    </div>
+                    <div class="packages-para" th:text="${item.price}"></div>
                 </div>
                 <div class="card-footer" style=" display:flex;justify-content:flex-end">
                     <a th:href="@{/admin/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-dark "
-                        style="margin-right:5px">
+                       style="margin-right:5px">
                         <i class="fa-sharp fa-solid fa-info"></i>
                     </a>
                     <a th:href="@{/admin/update-tour/{id} (id = ${item.id})}" class="btn btn-outline-primary "
@@ -53,10 +66,10 @@
     <div th:if="${totalPages > 1}">
         <nav>
             <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <li class="page-item" th:if="${currentPage != 1}">
                     <a class="page-link" th:href="@{/admin/view-list-tours/page/{pageNo}(pageNo=1)}">‹‹</a>
                 </li>
-                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <li class="page-item" th:if="${currentPage != 1}">
                     <a class="page-link"
                        th:href="@{/admin/view-list-tours/page/{pageNo}(pageNo=${currentPage - 1})}">‹</a>
                 </li>
@@ -65,11 +78,11 @@
                     <a class="page-link" th:href="@{/admin/view-list-tours/page/{pageNo}(pageNo=${i})}"
                        th:text="${i}"></a>
                 </li>
-                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <li class="page-item" th:if="${currentPage != totalPages}">
                     <a class="page-link"
                        th:href="@{/admin/view-list-tours/page/{pageNo}(pageNo=${currentPage + 1})}">›</a>
                 </li>
-                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <li class="page-item" th:if="${currentPage != totalPages}">
                     <a class="page-link" th:href="@{/admin/view-list-tours/page/{pageNo}(pageNo=${totalPages})}">››</a>
                 </li>
             </ul>

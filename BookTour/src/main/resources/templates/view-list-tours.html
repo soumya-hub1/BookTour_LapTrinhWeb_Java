@@ -58,8 +58,8 @@
                     <div th:if="${not #authorization.expression('isAuthenticated()')}">
                         <a class="btn btn-primary" th:href="@{/login}">Book tour</a>
                     </div>
-                    <a th:href="@{/tour/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-danger">
-                        Xem chi tiết tour
+                    <a th:href="@{/tour/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-danger">
+                        Chi tiết
                     </a>
                 </div>
             </div>
