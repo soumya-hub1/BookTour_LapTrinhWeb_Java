@@ -14,25 +14,30 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.*;
 
 @RequestMapping("/admin")
 @Controller
@@ -140,31 +145,79 @@ public class AdminController {
 
         return "admin/send-mail";
     }
-
     @PostMapping("/send-mail")
-    public String submitSendMail(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    public String submitSendMail(HttpServletRequest request, @RequestParam("attachment") MultipartFile multipartFile)
+            throws MessagingException, UnsupportedEncodingException, InterruptedException, ExecutionException {
+
+        // Lấy thông tin từ request
         String tourName = request.getParameter("tourName");
         String tourDescription = request.getParameter("tourDescription");
 
+        // Lấy danh sách email
         List<Email> emails = emailService.getAllEmails();
 
+        // Tạo một ExecutorService với số luồng tương đương số email
+        ExecutorService executorService = Executors.newFixedThreadPool(emails.size());
+
+        // Tạo danh sách các nhiệm vụ gửi email
+        List<Callable<Void>> tasks = new ArrayList<>();
+
+        // Duyệt qua danh sách email
         for (Email email : emails) {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message);
+            // Định nghĩa nhiệm vụ Callable để gửi email
+            Callable<Void> task = () -> {
+                // Tạo MimeMessage và MimeMessageHelper
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            String subject = "Tour name:" + tourName;
-            String content = "<p><b>Tour Description</b>:" + tourDescription + "<p>";
+                // Tạo tiêu đề và nội dung email
+                String subject = "Tour name: " + tourName;
+                String content = "<p><b>Tour Description</b>: " + tourDescription + "<p>";
 
-            helper.setFrom("toutnest2425@gmail.com", "TourNest");
-            helper.setTo(email.getEmail());
-            helper.setSubject(subject);
-            helper.setText(content, true);
+                // Cấu hình người gửi, người nhận, tiêu đề và nội dung email
+                helper.setFrom("toutnest2425@gmail.com", "TourNest");
+                helper.setTo(email.getEmail());
+                helper.setSubject(subject);
+                helper.setText(content, true);
 
-            mailSender.send(message);
+                // Nếu có tệp đính kèm, thêm vào email
+                if (!multipartFile.isEmpty()) {
+                    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                    InputStreamSource source = new InputStreamSource() {
+                        @Override
+                        public InputStream getInputStream() throws IOException {
+                            return multipartFile.getInputStream();
+                        }
+                    };
+                    helper.addAttachment(fileName, source);
+                }
+
+                // Gửi email
+                mailSender.send(message);
+
+                return null;
+            };
+
+            // Thêm nhiệm vụ vào danh sách tasks
+            tasks.add(task);
         }
 
+        // Chạy tất cả các nhiệm vụ và nhận danh sách Future
+        List<Future<Void>> futures = executorService.invokeAll(tasks);
+
+        // Tắt ExecutorService và đợi cho tất cả các nhiệm vụ hoàn thành
+        executorService.shutdown();
+        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+        // Đảm bảo tất cả các nhiệm vụ đã hoàn thành
+        for (Future<Void> future : futures) {
+            future.get();
+        }
+
+        // Trả về đường dẫn tới trang hiển thị thông báo gửi email thành công
         return "/admin/send-mail-message";
     }
+
 
     @GetMapping("/profile")
     public String viewProfile(Model model, Principal principal) {
