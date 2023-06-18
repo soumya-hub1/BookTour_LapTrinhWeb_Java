@@ -1442,9 +1442,6 @@ input.form-control.about-btn.travel-mrt-0 {
 
 span#errorMessage {
     border-radius: 24px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
 }
 /*-------------------------------------
         13.  Footer-copyright
