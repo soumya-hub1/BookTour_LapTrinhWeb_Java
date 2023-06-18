@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
 <head>
     <meta charset="UTF-8">
 
@@ -16,7 +17,7 @@
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
             crossorigin="anonymous"></script>
 </head>
-<div class="container body-content">
+<div layout:fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
