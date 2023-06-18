@@ -8,53 +8,38 @@
     <meta charset="UTF-8">
 
     <title>TourNest - List tour</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
 </head>
+
+<body>
 <div layout:fragment="content">
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered mt-3">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tên tour</th>
-            <th scope="col">Hình ảnh</th>
-            <th scope="col">Giá</th>
-            <th scope="col">Số lượng vé</th>
-            <th scope="col">Tổng tiền</th>
-            <th scope="col"></th>
+            <th class="col text-center">Mã booking</th>
+            <th class="col text-center">Tên tour</th>
+            <th class="col text-center">Giá</th>
+            <th class="col text-center">Số lượng vé</th>
+            <th class="col text-center">Tổng tiền</th>
+            <th class="col text-center"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="align-middle">
         <tr th:each="cartItem, itemIndex : ${cartItems}">
-            <td th:text="${itemIndex.index + 1}"></td>
+            <td class="text-center" th:text="${itemIndex.index + 1}"></td>
             <td th:text="${cartItem.name}"></td>
-            <td>
-                <img th:src="@{/images/{image}(image=${cartItem.image})}"
-
-                     height="120" width="150" alt="Tour image">
-
+            <td class="text-center" th:text="${cartItem.price} + 'đ'"></td>
+            <td class="text-center">
+                <div class="d-flex align-items-center">
+                    <form th:action="@{/cart/update}" method="post" class="d-flex align-items-center">
+                        <input type="hidden" name="tourId" th:value="${cartItem.id}"/>
+                        <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}" class="me-2"/>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </form>
+                </div>
             </td>
-            <td th:text="${cartItem.price} + 'đ'"></td>
-            <td>
-                <form th:action="@{/cart/update}" method="post">
 
-                    <input type="hidden" name="tourId" th:value="${cartItem.id}"/>
-                    <input type="number" name="quantity" min="1"
-
-                           th:value="${cartItem.quantity}"/>
-
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                </form>
-            </td>
-            <td th:text="${cartItem.price.longValue() * cartItem.quantity}"></td>
-            <td>
+            <td class="text-center" th:text="${cartItem.price.longValue() * cartItem.quantity}"></td>
+            <td class="text-center">
                 <form th:action="@{/cart/remove/{tourId}(tourId=${cartItem.id})}" method="post">
                     <button type="submit" class="btn btn-danger">Xóa</button>
                 </form>
@@ -62,7 +47,7 @@
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td class="total-price" colspan="2">
+            <td class="total-price text-center" colspan="2">
                 <h3>Tổng tiền: <span th:text="${totalPrice}"></span></h3>
                 <form th:action="@{/cart/order}" method="post">
                     <button type="submit" class="btn btn-success">Đặt tour</button>
@@ -73,4 +58,5 @@
     </table>
 </div>
 </body>
+
 </html>
