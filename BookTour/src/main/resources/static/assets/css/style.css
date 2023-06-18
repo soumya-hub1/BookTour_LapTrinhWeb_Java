@@ -358,7 +358,7 @@ body {
 }
 
 .about-btn {
-    margin-top: 39px;
+    display:inline-block;
     letter-spacing: 1.2px;
     -webkit-transition: 0.5s ease-in-out;
     -moz-transition: 0.5s ease-in-out;
@@ -707,6 +707,12 @@ body {
     margin-right: 15px;
 }
 
+button.about-view.travel-btn {
+    height: 50px;
+}
+input.form-control.about-btn.travel-mrt-0 {
+    height: 50px;
+}
 /*-------------------------------------
         5. Service
 --------------------------------------*/

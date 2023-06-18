@@ -27,10 +27,10 @@ public class HomeController {
     public String index(Model model) {
         List<Tour> allTours = tourService.getAllTours();
 
-        if (allTours.size() < 6 || allTours.isEmpty()) {
+        if (allTours.size() < 3 || allTours.isEmpty()) {
             return "index";
         }
-        List<Tour> randomTours = randomTours(allTours, 6);
+        List<Tour> randomTours = randomTours(allTours, 3);
         model.addAttribute("listDestination", tourService.getAllDestinationPoint());
         model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
         model.addAttribute("listTours", randomTours);

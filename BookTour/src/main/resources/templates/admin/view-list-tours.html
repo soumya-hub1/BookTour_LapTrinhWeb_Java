@@ -20,27 +20,27 @@
                 <img th:src="${item.image}" class="card-img-top" alt="Tour 1">
                 <div class="card-body">
                     <h1 class="card-title" th:text="${item.tourName}">Tên tour</h1>
-                    <p class="card-text">Điểm đến: Địa điểm 1</p>
-                    <p class="card-text">Điểm đi: Địa điểm 2</p>
                     <div class="row card-text">
                         <b th:text=" 'từ ' + ${item.departure.departureName} + ' đến ' + ${item.destination.destinationName}"></b>
                     </div>
-                    <p class="card-text">Thời gian đi: 10:00 AM</p>
-                    <p class="card-text">Thời gian về: 5:00 PM</p>
-                    <h3 class="card-text"
-                        th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + ' ngày'">
-                        thời gian
-                        về trừ thời gian đi</h3>
-                    <p class="card-text" th:text="${item.description}">miêu tả</p>
+                    <h3 class="card-text" th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + ' ngày'"></h3>
+                    <div>
+                        <p class="card-text" th:if="${#strings.length(item.description) > 40}"
+                           th:text="${#strings.substring(item.description, 0, 40) + '...'}" style="margin-bottom:16px"></p>
+                        <p th:if="${#strings.length(item.description) <= 40}" th:text="${item.description}"></p>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <a th:href="@{/admin/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-dark">
+                <div class="card-footer" style=" display:flex;justify-content:flex-end">
+                    <a th:href="@{/admin/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-dark "
+                        style="margin-right:5px">
                         <i class="fa-sharp fa-solid fa-info"></i>
                     </a>
-                    <a th:href="@{/admin/update-tour/{id} (id = ${item.id})}" class="btn btn-primary">
+                    <a th:href="@{/admin/update-tour/{id} (id = ${item.id})}" class="btn btn-outline-primary "
+                       style="margin-right:5px">
                         <i class="fa-sharp fa-solid fa-edit"></i>
                     </a>
-                    <a th:href="@{/admin/delete-tour/{id} (id = ${item.id})}" class="btn btn-outline-danger">
+                    <a th:href="@{/admin/delete-tour/{id} (id = ${item.id})}" class="btn btn-outline-danger "
+                       style="margin-right:5px">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </div>
