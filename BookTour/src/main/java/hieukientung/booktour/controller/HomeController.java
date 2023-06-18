@@ -30,7 +30,7 @@ public class HomeController {
         if (allTours.size() < 3 || allTours.isEmpty()) {
             return "index";
         }
-        List<Tour> randomTours = randomTours(allTours, 3);
+        List<Tour> randomTours = randomTours(allTours, 6);
         model.addAttribute("listDestination", tourService.getAllDestinationPoint());
         model.addAttribute("listDeparture", tourService.getAllDeparturePoint());
         model.addAttribute("listTours", randomTours);
@@ -55,6 +55,11 @@ public class HomeController {
             model.addAttribute("successMessage", "Cảm ơn bạn đã đăng ký!");
         }
         return "index";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "_LayoutUser";
     }
 }
 

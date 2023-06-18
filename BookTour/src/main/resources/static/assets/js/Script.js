@@ -14,3 +14,11 @@ $(document).ready(function () {
         showPreviewImage(this);
     });
 });
+
+//Dropdown menu
+$(document).ready(function () {
+    $('.dropdown').on('click', function (e) {
+        e.preventDefault();
+        $(this).siblings('.dropdown-menu').toggleClass('show');
+    });
+});
