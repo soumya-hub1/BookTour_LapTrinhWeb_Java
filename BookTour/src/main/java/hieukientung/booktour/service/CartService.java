@@ -15,34 +15,52 @@ import java.util.List;
 @SessionScope
 public class CartService {
     private List<CartItem> cartItems = new ArrayList<>();
+
     public List<CartItem> getCartItems() {
         return cartItems;
     }
+
     public void clearCart() {
         cartItems.clear();
     }
 
     public void addToCart(Tour tour) {
+        CartItem existingCartItem = null;
+        CartItem newItem = new CartItem();
+        boolean replaceItem = false;
 
-        CartItem findCart = cartItems.stream()
-                .filter(item -> item.getId().equals(tour.getId()))
-                .findFirst().orElse(null);
-        if(findCart != null)
-        {
-            findCart.setQuantity(findCart.getQuantity()+1);
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(tour.getId())) {
+                existingCartItem = cartItem;
+                break;
+            }
         }
-        else
-        {
-            System.out.print("case item = null");
-            findCart = new CartItem();
-            findCart.setQuantity(1);
 
-            findCart.setId(tour.getId());
-            findCart.setName(tour.getTourName());
-            findCart.setImage(tour.getImage());
-            findCart.setPrice(tour.getPrice());
+        if (existingCartItem != null) {
+            // Tour đã tồn tại trong giỏ hàng, thực hiện thêm số lượng
+            existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
+        } else {
+            // Tour chưa tồn tại trong giỏ hàng, thực hiện thay thế
+            newItem.setId(tour.getId());
+            newItem.setName(tour.getTourName());
+            newItem.setImage(tour.getImage());
+            newItem.setPrice(tour.getPrice());
+            newItem.setQuantity(1);
 
-            cartItems.add(findCart);
+            replaceItem = true;
+        }
+
+        if (replaceItem) {
+            // Xóa bỏ id tour cũ nếu có trong giỏ hàng
+            for (CartItem cartItem : cartItems) {
+                if (!cartItem.getId().equals(tour.getId())) {
+                    cartItems.remove(cartItem);
+                    break;
+                }
+            }
+
+            // Thêm id tour mới vào giỏ hàng
+            cartItems.add(newItem);
         }
     }
 
@@ -50,8 +68,7 @@ public class CartService {
         CartItem findCart = cartItems.stream()
                 .filter(item -> item.getId().equals(productId))
                 .findFirst().orElse(null);
-        if(findCart != null)
-        {
+        if (findCart != null) {
             findCart.setQuantity(quantity);
         }
     }
@@ -79,7 +96,10 @@ public class CartService {
             orderDetail.setOrder(order);
             orderDetail.setPrice(cartItem.getPrice().longValue());
             orderDetail.setQuantity(cartItem.getQuantity());
+
             orderDetails.add(orderDetail);
+
+            order.setTotalAmount(cartItem.getAmount());
         }
         // Set order details in the order
         order.setOrderDetails(orderDetails);

@@ -8,6 +8,9 @@ import hieukientung.booktour.service.TourService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +38,7 @@ public class CartController {
         // Calculate cart count
         session.setAttribute("cartCount", cartItems.size());
         //  model.addAttribute("cartCount", cartItems.size());
-        return "cart-item";
+        return "/cart/cart-item";
     }
 
     @PostMapping("/add/{id}")
@@ -54,27 +57,30 @@ public class CartController {
         return "redirect:/cart/view";
     }
 
-    @PostMapping("/remove/{productId}")
-    public String removeFromCart(@PathVariable("productId") Long tourId) {
+    @PostMapping("/remove/{tourId}")
+    public String removeFromCart(@PathVariable("tourId") Long tourId) {
         cartService.removeFromCart(tourId);
-        return "redirect:/cart/view";
+        return "redirect:/tour/view-list-tours";
     }
 
-//    @PostMapping("/order")
-//    public String Order() {
-//        // Get the currently logged-in user
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        // Process the purchaseProduct product = productService.get(productId);
-//        cartService.orderCart(findUser);
-//        // Redirect to a success page or return a success message
-//        return "/cart/order.html";
-//    }
+    @PostMapping("/order")
+    public String Order() {
+        // Get the currently logged-in user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        hieukientung.booktour.model.User findUser = userRepository.findByUsername(user.getUsername()).orElse(null);
+        // Process the purchaseProduct product = productService.get(productId);
+        cartService.orderCart(findUser);
+        // Redirect to a success page or return a success message
+        return "/cart/order";
+    }
 
     @PostMapping("/payment")
     public String Payment() {
         // Get the currently logged-in user
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        hieukientung.booktour.model.User findUser = userRepository.findByUsername(user.getUsername()).orElse(null);
         // Redirect to a success page or return a success message
         return "/cart/success";
     }
