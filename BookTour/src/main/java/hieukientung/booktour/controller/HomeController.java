@@ -54,6 +54,6 @@ public class HomeController {
             emailRepository.save(newEmail);
             model.addAttribute("successMessage", "Cảm ơn bạn đã đăng ký!");
         }
-        return "index";
+        return "email-message";
     }
 }
