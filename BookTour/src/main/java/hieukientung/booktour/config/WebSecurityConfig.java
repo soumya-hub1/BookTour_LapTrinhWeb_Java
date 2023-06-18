@@ -31,6 +31,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/cart/**").hasAnyAuthority("USER")
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form

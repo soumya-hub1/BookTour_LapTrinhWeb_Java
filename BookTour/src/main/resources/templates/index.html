@@ -79,13 +79,23 @@
                                         <i class="fa-regular fa-user"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li>
+                                        <li sec:authorize="hasAuthority('USER')">
                                             <a th:href="@{/profile}">
                                                 <i class="fa-regular fa-user"></i> Quản lý tài khoản
                                             </a>
                                         </li>
-                                        <li>
+                                        <li sec:authorize="hasAuthority('ADMIN')">
+                                            <a th:href="@{/admin/profile}">
+                                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('USER')">
                                             <a th:href="@{/change-password}">
+                                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('ADMIN')">
+                                            <a th:href="@{/admin/change-password}">
                                                 <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
                                             </a>
                                         </li>
@@ -118,7 +128,9 @@
                         <div class="about-us-txt">
                             <h2>Khám phá và trải nghiệm vẻ đẹp của Việt Nam</h2>
                             <div class="about-btn">
-                                <button class="about-view">KHÁM PHÁ NGAY</button>
+                                <a th:href="@{/tour}">
+                                    <button class="about-view">KHÁM PHÁ NGAY</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -231,7 +243,7 @@
                                         <div class="row">
                                             <div class="col-lg-9 col-md-9 col-sm-12">
                                                 <div class="single-tab-select-box">
-                                                    <input type="text" value="name"
+                                                    <input type="text" placeholder="Nhập mã đặt tour"
                                                            class="form-control about-btn travel-mrt-0 ">
                                                 </div>
                                             </div>
@@ -266,89 +278,50 @@
             <h2>Tour Packages</h2>
         </div>
         <div class="packages-content">
-            <div class="div">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
-                        <div class="single-package-item">
-                            <img src="/assets/images/packages/p2.jpg" alt="package-place">
-                            <div class="single-package-item-txt">
-                                <div>
-                                    <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
-                                    <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + 'N' +
+            <div class="row">
+                <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
+                    <div class="single-package-item">
+                        <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
+                            <img th:src="${tour.image}" alt="package-place">
+                        </a>
+                        <div class="single-package-item-txt">
+                            <div>
+                                <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + 'N' +
                                                    ${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)} + 'Đ'">
                                     </span>
-                                </div>
-                                <h3 th:text="${tour.tourName}"></h3>
-                                <br>
-                                <div class="packages-para">
-                                    <i th:if="${#strings.length(tour.description) > 45}"
-                                       th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
-                                    <i th:if="${#strings.length(tour.description) <= 45}"
-                                       th:text="${tour.description}"></i>
-                                </div>
-                                <div class="packages-para">
-                                    Nơi khởi hành:
-                                    <span th:text="${tour.departure.departureName}"></span>
-                                </div>
-                                <div class="packages-para">
-                                    Nơi kết thúc
-                                    <span th:text="${tour.destination.destinationName}"></span>
-                                </div>
-                                <div class="packages-para" th:text="${tour.price}"></div>
-                                <br>
-                                <div class="about-btn">
-                                    <button class="about-view packages-btn">
-                                        Book Now
-                                    </button>
-                                </div>
-                                <div class="pull-right about-btn">
-                                    <button class="about-view packages-btn">
-                                        Detail
-                                    </button>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
-                        <div class="single-package-item">
-                            <img src="/assets/images/packages/p2.jpg" alt="package-place">
-                            <div class="single-package-item-txt">
-                                <div>
-                                    <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
-                                    <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + 'N' +
-                                                   ${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)} + 'Đ'">
-                                    </span>
-                                </div>
-                                <h3 th:text="${tour.tourName}"></h3>
-                                <br>
-                                <div class="packages-para">
-                                    <i th:if="${#strings.length(tour.description) > 45}"
-                                       th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
-                                    <i th:if="${#strings.length(tour.description) <= 45}"
-                                       th:text="${tour.description}"></i>
-                                </div>
-                                <div class="packages-para">
-                                    Nơi khởi hành:
-                                    <span th:text="${tour.departure.departureName}"></span>
-                                </div>
-                                <div class="packages-para">
-                                    Nơi kết thúc
-                                    <span th:text="${tour.destination.destinationName}"></span>
-                                </div>
-                                <div class="packages-para" th:text="${tour.price}"></div>
-                                <br>
-                                <div class="about-btn">
+                            <h3 th:text="${tour.tourName}"></h3>
+                            <br>
+                            <div class="packages-para">
+                                <i th:if="${#strings.length(tour.description) > 45}"
+                                   th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
+                                <i th:if="${#strings.length(tour.description) <= 45}"
+                                   th:text="${tour.description}"></i>
+                            </div>
+                            <div class="packages-para">
+                                Nơi khởi hành:
+                                <span th:text="${tour.departure.departureName}"></span>
+                            </div>
+                            <div class="packages-para">
+                                Nơi kết thúc
+                                <span th:text="${tour.destination.destinationName}"></span>
+                            </div>
+                            <div class="packages-para" th:text="${tour.price}"></div>
+                            <br>
+                            <div class="about-btn">
+                                <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
                                     <button class="about-view packages-btn">
                                         Book Now
                                     </button>
-                                </div>
-                                <div class="pull-right about-btn">
+                                </a>
+                            </div>
+                            <div class="pull-right about-btn">
+                                <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
                                     <button class="about-view packages-btn">
-                                        Detail
+                                        Chi tiết
                                     </button>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -406,7 +379,7 @@
                 <div class="col-sm-3">
                     <div class="single-footer-item">
                         <div class="footer-logo">
-                            <a href="index.html">
+                            <a href="/">
                                 tour<span>Nest</span>
                             </a>
                             <p>
