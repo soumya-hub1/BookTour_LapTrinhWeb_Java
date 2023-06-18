@@ -307,18 +307,19 @@
                                 Nơi kết thúc
                                 <span th:text="${tour.destination.destinationName}"></span>
                             </div>
-                            <div class="packages-para" th:text="${tour.price}"></div>
+                            <div class="packages-para" th:text="${#numbers.formatDecimal(tour.price, 0, 'COMMA', 2, 'POINT')}"></div>
+
                             <br>
                             <div class="about-btn">
-                                <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
-                                    <button class="about-view packages-btn">
+                                <form th:action="@{/cart/add/{id}(id=${tour.id})}" method="post">
+                                    <button type="submit" class="about-view packages-btn">
                                         Book Now
                                     </button>
-                                </a>
+                                </form>
                             </div>
                             <div class="pull-right about-btn">
-                                <a th:href="@{/tour-detail/{id}(id=${tour.id})}">
-                                    <button class="about-view packages-btn">
+                                <a th:href="@{/tour/view-detail-tour/{id} (id = ${tour.id})}">
+                                    <button class="btn btn-danger">
                                         Chi tiết
                                     </button>
                                 </a>
