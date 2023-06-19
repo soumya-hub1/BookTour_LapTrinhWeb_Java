@@ -1,9 +1,11 @@
 package hieukientung.booktour.controller;
 
 import hieukientung.booktour.model.CartItem;
+import hieukientung.booktour.model.Orders;
 import hieukientung.booktour.model.Tour;
 import hieukientung.booktour.repository.UserRepository;
 import hieukientung.booktour.service.CartService;
+import hieukientung.booktour.service.OrdersService;
 import hieukientung.booktour.service.TourService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,13 +77,30 @@ public class CartController {
         return "/cart/order";
     }
 
-    @PostMapping("/payment")
-    public String Payment() {
+    @Autowired
+    private OrdersService ordersService;
+
+    @GetMapping("/view-payment")
+    public String ShowOrdersList(Model model) {
+        List<Orders> orders = ordersService.getAllOrders();
+        model.addAttribute("orders", orders);
+        return "cart/view-payment";
+    }
+
+    @PostMapping("/payment/{id}")
+    public String Payment(@PathVariable("id") Long orderId) {
         // Get the currently logged-in user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         hieukientung.booktour.model.User findUser = userRepository.findByUsername(user.getUsername()).orElse(null);
-        // Redirect to a success page or return a success message
-        return "/cart/success";
+        // Find the orderId to set isPaid
+        Orders find_OrderId = ordersService.getOrdersById(orderId);
+        if (find_OrderId != null) {
+            find_OrderId.setIsPaid(true);
+            ordersService.saveOrder(find_OrderId);
+        }
+
+        // Redirect to a view-payment page or return a success message
+        return "redirect:/cart/view-payment";
     }
 }
