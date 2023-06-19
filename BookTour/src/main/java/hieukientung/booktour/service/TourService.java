@@ -18,6 +18,14 @@ public interface TourService {
 
     Page<Tour> findPaginated(int pageNo, int pageSize);
 
+    DestinationPoint getDestinationPointById(Long id);
+
+    DeparturePoint getDeparturePointById(Long id);
+
+    void saveDestinationPoint(DestinationPoint destinationPoint);
+
+    void saveDeparturePoint(DeparturePoint departurePoint);
+
     List<DestinationPoint> getAllDestinationPoint();
 
     List<DeparturePoint> getAllDeparturePoint();

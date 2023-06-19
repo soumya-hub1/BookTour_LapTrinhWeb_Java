@@ -61,6 +61,40 @@ public class TourServiceImp implements TourService {
     }
 
     @Override
+    public DestinationPoint getDestinationPointById(Long id) {
+        Optional<DestinationPoint> optional = destinationPointRepository.findById(id);
+        DestinationPoint destinationPoint = null;
+        if (optional.isPresent()) {
+            destinationPoint = optional.get();
+        } else {
+            throw new RuntimeException("Destination Point not found for id :: " + id);
+        }
+        return destinationPoint;
+    }
+
+    @Override
+    public DeparturePoint getDeparturePointById(Long id) {
+        Optional<DeparturePoint> optional = departurePointRepository.findById(id);
+        DeparturePoint departurePoint = null;
+        if (optional.isPresent()) {
+            departurePoint = optional.get();
+        } else {
+            throw new RuntimeException("Departure Point not found for id :: " + id);
+        }
+        return departurePoint;
+    }
+
+    @Override
+    public void saveDestinationPoint(DestinationPoint destinationPoint) {
+        destinationPointRepository.save(destinationPoint);
+    }
+
+    @Override
+    public void saveDeparturePoint(DeparturePoint departurePoint) {
+        departurePointRepository.save(departurePoint);
+    }
+
+    @Override
     public List<DestinationPoint> getAllDestinationPoint() {
         return destinationPointRepository.findAll();
     }

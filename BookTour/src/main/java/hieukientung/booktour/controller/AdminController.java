@@ -1,9 +1,6 @@
 package hieukientung.booktour.controller;
 
-import hieukientung.booktour.model.Email;
-import hieukientung.booktour.model.Role;
-import hieukientung.booktour.model.Tour;
-import hieukientung.booktour.model.User;
+import hieukientung.booktour.model.*;
 import hieukientung.booktour.repository.RoleRepository;
 import hieukientung.booktour.service.AccountService;
 import hieukientung.booktour.service.AdminService;
@@ -25,6 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.standard.Destination;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -145,6 +143,7 @@ public class AdminController {
 
         return "admin/send-mail";
     }
+
     @PostMapping("/send-mail")
     public String submitSendMail(HttpServletRequest request, @RequestParam("attachment") MultipartFile multipartFile)
             throws MessagingException, UnsupportedEncodingException, InterruptedException, ExecutionException {
@@ -269,5 +268,59 @@ public class AdminController {
             accountService.saveUser(admin);
         }
         return "redirect:/admin/change-password";
+    }
+
+    @GetMapping("/view-list-destinations")
+    public String getAllDestinations(Model model) {
+        List<DestinationPoint> listDestinations = tourService.getAllDestinationPoint();
+        model.addAttribute("listDestinations", listDestinations);
+        return "admin/view-list-destinations";
+    }
+
+    @GetMapping("/view-list-destinations/update-destination/{id}")
+    public String updateDestination(@PathVariable(value = "id") long id, Model model) {
+        DestinationPoint destination = tourService.getDestinationPointById(id);
+        model.addAttribute("destination", destination);
+        return "admin/update-destination";
+    }
+
+    @PostMapping("/saveDestination")
+    public String saveDestination(@ModelAttribute("destination") @Valid DestinationPoint destination) {
+        tourService.saveDestinationPoint(destination);
+        return "redirect:/admin/view-list-destinations";
+    }
+
+    @GetMapping("/create-destination")
+    public String createDestination(Model model) {
+        DestinationPoint destination = new DestinationPoint();
+        model.addAttribute("destination", destination);
+        return "admin/create-destination";
+    }
+
+    @GetMapping("/view-list-departures")
+    public String getAllDepartures(Model model) {
+        List<DeparturePoint> listDepartures = tourService.getAllDeparturePoint();
+        model.addAttribute("listDepartures", listDepartures);
+        return "admin/view-list-departures";
+    }
+
+    @GetMapping("/view-list-departures/update-departure/{id}")
+    public String updateDeparture(@PathVariable(value = "id") long id, Model model) {
+        DeparturePoint departure = tourService.getDeparturePointById(id);
+        model.addAttribute("departure", departure);
+        return "admin/update-departure";
+    }
+
+    @PostMapping("/saveDeparture")
+    public String saveDeparture(@ModelAttribute("departure") @Valid DeparturePoint departure) {
+        tourService.saveDeparturePoint(departure);
+        return "redirect:/admin/view-list-departures";
+    }
+
+    @GetMapping("/create-departure")
+    public String createDeparture(Model model) {
+        DeparturePoint departure = new DeparturePoint();
+        model.addAttribute("departure", departure);
+        return "admin/create-departure";
     }
 }
