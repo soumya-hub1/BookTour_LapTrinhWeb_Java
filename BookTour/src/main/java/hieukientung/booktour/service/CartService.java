@@ -1,7 +1,7 @@
 package hieukientung.booktour.service;
 
 import hieukientung.booktour.model.*;
-import hieukientung.booktour.repository.OrderRepository;
+import hieukientung.booktour.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +79,7 @@ public class CartService {
 
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrdersRepository ordersRepository;
 
     @Transactional
     public void orderCart(User user) {
@@ -104,7 +104,7 @@ public class CartService {
         // Set order details in the order
         order.setOrderDetails(orderDetails);
         // Save the order to the database
-        orderRepository.save(order);
+        ordersRepository.save(order);
         // Clear the cart
         clearCart();
     }
