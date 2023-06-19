@@ -314,11 +314,20 @@
 
                             <br>
                             <div class="about-btn">
-                                <form name="book-tour" th:action="@{/cart/add/{id}(id=${tour.id})}" method="post">
-                                    <button type="submit" class="about-view packages-btn">
-                                        Book Now
-                                    </button>
-                                </form>
+                                <div sec:authorize="hasAuthority('USER')">
+                                    <form name="book-tour" th:action="@{/cart/add/{id}(id=${tour.id})}" method="post">
+                                        <button type="submit" class="about-view packages-btn">
+                                            Book Now
+                                        </button>
+                                    </form>
+                                </div>
+                                <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                                    <a th:href="@{/login}">
+                                        <button type="button" class="about-view packages-btn">
+                                            Book Now
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                             <div class="pull-right about-btn">
                                 <a th:href="@{/tour/view-detail-tour/{id} (id = ${tour.id})}">
