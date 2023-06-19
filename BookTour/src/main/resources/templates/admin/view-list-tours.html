@@ -24,6 +24,7 @@
                 <div class="card-body">
                     <div>
                         <span th:text="${#temporals.format(item.dateStart, 'dd/MM/yyyy')}"></span> -
+                        <span th:text="${#temporals.format(item.dateEnd, 'dd/MM/yyyy')}"></span> -
                         <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + 'N' +
                                        ${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd)} + 'Đ'">
                         </span>
