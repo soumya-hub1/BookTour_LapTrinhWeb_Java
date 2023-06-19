@@ -40,7 +40,7 @@
                 <span th:unless="${order.isPaid}">Chưa thanh toán</span>
             </td>
             <td th:text="${order.orderDate}"></td>
-            <td th:text="${order.totalAmount}"></td>
+            <td th:text="${order.totalAmount} + ' 000 VNĐ'"></td>
             <td>
                 <form th:action="@{/cart/payment/{id}(id=${order.id})}" method="post">
                     <button type="submit" class="btn btn-outline-danger">Thanh toán ngay</button>
@@ -49,6 +49,9 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div style="margin-left: 120px;">
+    <a th:href="@{/profile}" class="btn btn-primary">Trở lại</a>
 </div>
 </body>
 </html>
