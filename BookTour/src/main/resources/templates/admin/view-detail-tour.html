@@ -42,19 +42,35 @@
             </div>
         </div>
     </div>
-    <h1 th:text="${tour.tourName}">Tên tour</h1>
+    <div class="row mt-3">
+        <h1 class="col-lg-8" th:text="${tour.tourName}">Tên tour</h1>
+        <div class="col-lg-4">
+            <div class="row mt-2">
+                <div class="col-lg-6">
+                    <h3 class="bold text-danger" th:text="${tour.price} + ' VNĐ'">Giá</h3>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-4">
-        <div class="row mb-2">
-            <b th:text=" 'Từ ' + ${tour.departure.departureName} + ' đến ' + ${tour.destination.destinationName}"></b>
+        <div class="row mb-3">
+            <span>Ngày khởi hành: <b class="text-primary"
+                                     th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></b></span>
+        </div>
+        <div class="row mb-3">
+            <span>Xuất phát từ: <b class="text-primary" th:text="${tour.departure.departureName}"></b></span>
         </div>
         <div class="row mb-2">
-            <h3 style="color: red;"
-                th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày'">
-                thời gian về trừ thời gian đi</h3>
+            <span class="d-inline">Số ngày ở lại:
+                <b class="text-primary" th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + ' ngày ' +
+                               ${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)} + ' đêm'">
+                </b>
+            </span>
         </div>
-        <div class="row mb-2">
-            <p th:text="${tour.description}">Miêu tả</p>
-        </div>
+    </div>
+    <div class="row mb-2">
+        <h3 class="text-center mb-4">Lịch trình</h3>
+        <p th:text="${tour.description}"></p>
     </div>
 </div>
 </body>

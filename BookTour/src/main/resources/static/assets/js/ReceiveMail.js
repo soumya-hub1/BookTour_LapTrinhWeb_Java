@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('form').submit(function (event) {
+    $('#sendmail').submit(function (event) {
         event.preventDefault(); // Ngăn chặn việc gửi form mặc định
 
         var email = $('input[name="email"]').val(); // Lấy giá trị email từ input
