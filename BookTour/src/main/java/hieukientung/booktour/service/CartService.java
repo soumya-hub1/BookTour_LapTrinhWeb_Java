@@ -103,6 +103,11 @@ public class CartService {
         }
         // Set order details in the order
         order.setOrderDetails(orderDetails);
+        // Set tourId from cartId (because it was assigned by tourId before)
+        Tour tour = new Tour();
+        tour.setId(cartItems.get(0).getId());
+        order.setTour(tour);
+
         // Save the order to the database
         ordersRepository.save(order);
         // Clear the cart

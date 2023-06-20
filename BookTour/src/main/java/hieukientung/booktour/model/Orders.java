@@ -32,6 +32,10 @@ public class Orders {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_id")
+    private Tour tour;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrdersDetail> orderDetails;
 }

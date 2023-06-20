@@ -17,12 +17,13 @@
 <title>TourNest - List tour</title>
 </head>
 <body>
-<div layout:fragment="content" class="text-center">
+<div layout:fragment="content" class="text-center container">
     <h1>Danh sách đặt tour</h1>
     <table class="table">
         <thead class="table-header">
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Tên tour</th>
             <th scope="col">Trạng thái thanh toán</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Tổng tiền</th>
@@ -32,6 +33,7 @@
         <tbody>
         <tr th:each="order : ${orders}">
             <th th:text="${order.id}" scope="row"></th>
+            <td th:text="${order.tour.tourName}"></td>
             <td>
                 <span th:if="${order.isPaid}">Đã thanh toán</span>
                 <span th:unless="${order.isPaid}">Chưa thanh toán</span>
