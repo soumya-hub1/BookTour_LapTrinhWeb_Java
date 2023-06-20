@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -37,14 +40,22 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String register(@ModelAttribute("user") @Valid User user, Model model) {
+    public String register(@ModelAttribute("user") @Valid User user,
+                           @RequestParam("imageFile") MultipartFile imageFile,
+                           Model model) throws IOException {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
             model.addAttribute("usernameExists", true);
             return "register";
         }
         Optional<Role> existingRole = roleRepository.findByName("USER");
-        if(existingRole.isPresent()) {
+        if (existingRole.isPresent()) {
             user.setRoles(Collections.singleton(existingRole.get()));
+        }
+        if (!imageFile.isEmpty()) {
+            String fileName = imageFile.getOriginalFilename();
+            Path path = Paths.get("target/classes/static/assets/images/user/" + fileName);
+            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            user.setImage("/assets/images/user/" + fileName);
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
