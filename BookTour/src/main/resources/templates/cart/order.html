@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
 <head>
     <meta charset="UTF-8">
 
@@ -20,7 +21,7 @@
 <title>TourNest - List tour</title>
 </head>
 <body>
-<div class="container body-content text-center">
+<div layout:fragment="content" class="text-center">
     <h1>Đặt tour thành công!</h1>
     <p>Đơn tour đã được ghi nhận.!</p>
     <a th:href="@{/tour/view-list-tours}" class="btn btn-primary">Tiếp tục mua tour khác</a>
