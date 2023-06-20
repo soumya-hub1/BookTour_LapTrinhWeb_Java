@@ -8,6 +8,10 @@
     <meta charset="UTF-8">
 
     <title>Register System</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="/assets/js/admin.js"></script>
 </head>
 
 <body>
@@ -82,10 +86,12 @@
                                 <option value="Khác">Khác</option>
                             </select>
                         </div>
-                        <!--                        image-->
                         <div class="form-group mb-3">
-                            <label class="control-label" for="image">Ảnh đại điện:</label>
-                            <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                            <label class="control-label" for="imageFile">Ảnh đại điện:</label>
+                            <img id="imagePreview" th:src="${user.image}" width="100px" height="100px"
+                                 alt="No photo selected"/>
+                            <input type="file" class="form-control mt-1" id="imageFile" name="imageFile"
+                                   accept="image/*">
                         </div>
                         <div class="form-group mb-3">
                             <button class="btn btn-primary" type="submit">Đăng ký</button>
