@@ -13,3 +13,28 @@ $(document).ready(function () {
         showPreviewImage(this);
     });
 });
+
+$(document).ready(function () {
+    $('.increment-btn').click(function () {
+        var inputElement = $(this).closest('.input-group').find('.quantity-input');
+        var newValue = parseInt(inputElement.val()) + 1;
+        inputElement.val(newValue).trigger('change');
+    });
+
+    $('.decrement-btn').click(function () {
+        var inputElement = $(this).closest('.input-group').find('.quantity-input');
+        var newValue = parseInt(inputElement.val()) - 1;
+        if (newValue >= 1) {
+            inputElement.val(newValue).trigger('change');
+        }
+    });
+
+    $('.quantity-input').blur(function () {
+        var inputElement = $(this);
+        var currentValue = inputElement.val();
+        if (currentValue === '') {
+            inputElement.val('1');
+            inputElement.change(); // Trigger the 'change' event to submit the form
+        }
+    });
+});
