@@ -29,11 +29,20 @@
             <td th:text="${cartItem.name}"></td>
             <td class="text-center" th:text="${cartItem.price} + 'đ'"></td>
             <td class="text-center">
-                <div class="d-flex align-items-center">
+                <div class="align-items-center">
                     <form th:action="@{/cart/update}" method="post" class="d-flex align-items-center">
                         <input type="hidden" name="tourId" th:value="${cartItem.id}"/>
-                        <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}" class="me-2"/>
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary decrement-btn" type="button">-</button>
+                            </div>
+                            <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}"
+                                   class="form-control text-center quantity-input"
+                                   onchange="this.form.submit()" style="margin: 0 5px"/>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary increment-btn" type="button">+</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </td>
