@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/_LayoutAdmin}">
+
+<head>
+    <title>TourNest - Update Profile</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h2>Chỉnh sửa thông tin cá nhân</h2>
+    <form th:object="${admin}" th:action="@{/admin/update-profile}" method="post" enctype="multipart/form-data">
+        <div class="container px-4 mt-4">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header text-center">Hình ảnh hồ sơ</div>
+                        <div class="card-body text-center">
+                            <div class="aspect-ratio aspect-ratio-4x3">
+                                <img class="aspect-ratio-img img-fluid mb-4" id="imagePreview" th:src="${admin.image}"
+                                     alt="Failed to load image"/>
+                            </div>
+                            <input type="file" class="form-control" name="imageFile" id="imageFile" accept="image/*"/>
+                            <input type="hidden" name="oldImage" th:value="${admin.image}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <div class="card mb-4">
+                        <div class="card-header text-center hồ sơ">Thông tin</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Username</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="username" id="username"
+                                               th:value="${admin.username}" readonly/>
+                                        <input type="text" class="form-control" name="password" id="password"
+                                               th:value="${admin.password}" hidden/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Email</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="email" id="email"
+                                               th:value="${admin.email}" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Họ</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="lastName" id="lastName"
+                                               th:value="${admin.lastName}"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Tên</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="firstName" id="firstName"
+                                               th:value="${admin.firstName}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Ngày sinh</label>
+                                    <div class="col-md-10">
+                                        <input type="date" class="form-control" name="birthday" id="birthday"
+                                               th:value="${admin.birthday}"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Địa chỉ</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="address" id="address"
+                                               th:value="${admin.address}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Số điện thoại</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="phone" id="phone"
+                                               th:value="${admin.phone}"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 gx-3 mb-3">
+                                    <label class="form-label small mb-1">Giới tính</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="sex" name="sex">
+                                            <option value="">Select your sex</option>
+                                            <option value="Nam" th:selected="${admin.sex == 'Nam'}">Nam</option>
+                                            <option value="Nữ" th:selected="${admin.sex == 'Nữ'}">Nữ</option>
+                                            <option value="Khác" th:selected="${admin.sex == 'Khác'}">Khác</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 gx-3 mt-3">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Lưu thông tin" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

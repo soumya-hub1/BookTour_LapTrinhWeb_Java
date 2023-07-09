@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
+<head>
+    <meta charset="UTF-8">
+
+    <title>TourNest - List tour</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+            integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+</head>
+<meta charset="UTF-8">
+<title>TourNest - List tour</title>
+</head>
+<body>
+<div layout:fragment="content" class="text-center container">
+    <h1>Danh sách đặt tour</h1>
+    <table class="table">
+        <thead class="table-header">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên tour</th>
+            <th scope="col">Trạng thái thanh toán</th>
+            <th scope="col">Ngày đặt</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <th th:text="${order.id}" scope="row"></th>
+            <td th:text="${order.tour.tourName}"></td>
+            <td>
+                <span th:if="${order.isPaid}">Đã thanh toán</span>
+                <span th:unless="${order.isPaid}">Chưa thanh toán</span>
+            </td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.totalAmount} + ' 000 VNĐ'"></td>
+            <td>
+                <div th:if="${!order.isPaid}">
+                    <form th:action="@{/cart/payment/{id}(id=${order.id})}" method="post">
+                        <button type="submit" class="btn btn-outline-danger">Thanh toán ngay</button>
+                    </form>
+                </div>
+                <div th:if="${order.isPaid}">
+                    <form th:action="@{/cart/payment/{id}(id=${order.id})}" method="post">
+                        <button type="submit" class="btn btn-outline-danger d-none">Thanh toán ngay</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="margin-left: 120px;">
+    <a th:href="@{/profile}" class="btn btn-primary">Trở lại</a>
+</div>
+</body>
+</html>
+

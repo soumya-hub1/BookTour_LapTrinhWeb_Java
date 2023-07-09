@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>TourNest - List tour</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <table class="table table-striped table-bordered mt-3">
+        <thead>
+        <tr>
+            <th class="col text-center">Mã booking</th>
+            <th class="col text-center">Tên tour</th>
+            <th class="col text-center">Giá</th>
+            <th class="col text-center">Số lượng người</th>
+            <th class="col text-center">Tổng tiền</th>
+            <th class="col text-center"></th>
+        </tr>
+        </thead>
+        <tbody class="align-middle">
+        <tr th:each="cartItem, itemIndex : ${cartItems}">
+            <td class="text-center" th:text="${itemIndex.index + 1}"></td>
+            <td th:text="${cartItem.name}"></td>
+            <td class="text-center" th:text="${cartItem.price} + 'đ'"></td>
+            <td class="text-center">
+                <div class="align-items-center">
+                    <form th:action="@{/cart/update}" method="post" class="d-flex align-items-center">
+                        <input type="hidden" name="tourId" th:value="${cartItem.id}"/>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary decrement-btn" type="button">-</button>
+                            </div>
+                            <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}"
+                                   class="form-control text-center quantity-input"
+                                   onchange="this.form.submit()" style="margin: 0 5px"/>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary increment-btn" type="button">+</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </td>
+
+            <td class="text-center" th:text="${cartItem.price.longValue() * cartItem.quantity}"></td>
+            <td class="text-center">
+                <form th:action="@{/cart/remove/{tourId}(tourId=${cartItem.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5"></td>
+            <td class="total-price text-center" colspan="2">
+                <h3>Tổng tiền: <span th:text="${totalPrice}"></span></h3>
+                <form th:action="@{/cart/order}" method="post">
+                    <button type="submit" class="btn btn-success">Đặt tour</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
