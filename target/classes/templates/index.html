@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TourNest - Travel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
+    <link rel="stylesheet" href="/assets/css/animate.css"/>
+    <link rel="stylesheet" href="/assets/css/hover-min.css">
+    <link rel="stylesheet" href="/assets/css/datepicker.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css"/>
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/assets/css/bootsnav.css"/>
+    <link rel="stylesheet" href="/assets/css/style.css"/>
+    <link rel="stylesheet" href="/assets/css/responsive.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/ReceiveMail.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootsnav.js"></script>
+    <script src="/assets/js/jquery.filterizr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.sticky.js"></script>
+    <script src="/assets/js/datepicker.js"></script>
+    <script src="/assets/js/custom.js"></script>
+</head>
+
+<body>
+<!-- main-menu Start -->
+<header class="top-area">
+    <div class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="logo">
+                        <a th:href="@{/}">
+                            tour<span>Nest</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="main-menu">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="smooth-menu"><a href="#home">Trang chủ</a></li>
+                                <li class="smooth-menu"><a href="#pack">Tour packages</a></li>
+                                <li><a th:href="@{/tour/view-list-tours}">Danh sách</a></li>
+                                <li sec:authorize="!isAuthenticated()">
+                                    <a th:href="@{/login}"><i class="fa-regular fa-user"></i></a>
+                                </li>
+                                <li sec:authorize="isAuthenticated()" class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa-regular fa-user"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li sec:authorize="hasAuthority('USER')">
+                                            <a th:href="@{/profile}">
+                                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('USER')">
+                                            <a class="dropdown-item" th:href="@{/cart/view-payment}">
+                                                <i class="fa-solid fa-money-bill"></i> Xem hóa đơn
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('ADMIN')">
+                                            <a th:href="@{/admin/profile}">
+                                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('USER')">
+                                            <a th:href="@{/change-password}">
+                                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                                            </a>
+                                        </li>
+                                        <li sec:authorize="hasAuthority('ADMIN')">
+                                            <a th:href="@{/admin/change-password}">
+                                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/logout}">
+                                                <i class="fa-solid fa-right-from-bracket"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home-border"></div>
+        </div>
+    </div>
+</header>
+<!-- main-menu End -->
+
+<!--about-us start -->
+<section id="home" class="about-us">
+    <div class="container">
+        <div class="about-us-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="single-about-us">
+                        <div class="about-us-txt">
+                            <h2>Khám phá và trải nghiệm vẻ đẹp của Việt Nam</h2>
+                            <div class="about-btn">
+                                <a th:href="@{/tour}">
+                                    <button class="about-view">KHÁM PHÁ NGAY</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--about-us end -->
+
+<!--travel-box start-->
+<section id="travel" class="travel-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="single-travel-boxes">
+                    <div id="desc-tabs" class="desc-tabs">
+
+                        <ul class="nav nav-tabs" role="tablist">
+
+                            <li role="presentation" class="active">
+                                <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
+                                    <i class="fa fa-tree"></i>
+                                    Tours
+                                </a>
+                            </li>
+
+                            <li role="presentation">
+                                <a href="#checking" aria-controls="hotels" role="tab" data-toggle="tab">
+                                    <i class="fa fa-building"></i>
+                                    Checking Book
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active fade in" id="tours">
+                                <form th:action="@{/search-tour}" method="get">
+                                    <div class="tab-para">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Nơi khởi hành</h2>
+                                                    <div class="travel-select-icon">
+                                                        <select class="form-control" name="departurePoint">
+                                                            <option value="default">Nơi khởi hành
+                                                            </option>
+                                                            <option th:each="departure : ${listDeparture}"
+                                                                    th:value="${departure.id}"
+                                                                    th:text="${departure.departureName}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Nơi kết thúc</h2>
+                                                    <div class="travel-select-icon">
+                                                        <select class="form-control " name="destinationPoint">
+                                                            <option value="default">Nơi kết thúc
+                                                            </option>
+                                                            <option th:each="destination : ${listDestination}"
+                                                                    th:value="${destination.id}"
+                                                                    th:text="${destination.destinationName}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Ngày khởi hành</h2>
+                                                    <div class="travel-check-icon">
+                                                        <input type="text" name="dateStart" class="form-control"
+                                                               data-toggle="datepicker" placeholder="DD/MM/YYYY">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Ngày kết thúc</h2>
+                                                    <div class="travel-check-icon">
+                                                        <input type="text" name="dateEnd" class="form-control"
+                                                               data-toggle="datepicker" placeholder="DD/MM/YYYY">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-3 col-sm-4">
+                                                <div class="text-danger" th:if="${errorMessage}">
+                                                    <span th:text="${errorMessage}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="about-btn travel-mrt-0 pull-right">
+                                                <button type="submit" class="about-view travel-btn">
+                                                    SEARCH TOUR
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade in" id="checking">
+                                <form th:action="@{/search-tour}" method="get">
+                                    <div class="tab-para">
+                                        <div class="row">
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <div class="single-tab-select-box">
+                                                    <input type="text" placeholder="Nhập mã đặt tour"
+                                                           class="form-control about-btn travel-mrt-0 ">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <div class="text-danger" th:if="${errorMessage}">
+                                                    <span th:text="${errorMessage}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="about-btn travel-mrt-0 pull-right">
+                                                <button type="submit" class="about-view travel-btn">
+                                                    <i class="fa-solid fa-magnifying-glass-location"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!--travel-box end-->
+
+<!--Tour start-->
+<section id="pack" class="packages">
+    <div class="container">
+        <div class="gallary-header text-center">
+            <h2>Tour Packages</h2>
+        </div>
+        <div class="packages-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6" th:each="tour : ${listTours}">
+                    <div class="single-package-item">
+                        <a th:href="@{/tour/view-detail-tour/{id}(id=${tour.id})}">
+                            <img th:src="${tour.image}" alt="package-place">
+                        </a>
+                        <div class="single-package-item-txt">
+                            <div>
+                                <span th:text="${#temporals.format(tour.dateStart, 'dd/MM/yyyy')}"></span> -
+                                <span th:text="${#temporals.format(tour.dateEnd, 'dd/MM/yyyy')}"></span> -
+                                <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd) + 1} + 'N' +
+                                               ${T(java.time.temporal.ChronoUnit).DAYS.between(tour.dateStart, tour.dateEnd)} + 'Đ'">
+                                </span>
+                            </div>
+                            <h3 th:text="${tour.tourName}"></h3>
+                            <br>
+                            <div class="packages-para">
+                                <i th:if="${#strings.length(tour.description) > 45}"
+                                   th:text="${#strings.substring(tour.description, 0, 40) + '...'}"></i>
+                                <i th:if="${#strings.length(tour.description) <= 45}"
+                                   th:text="${tour.description}"></i>
+                            </div>
+                            <div class="packages-para">
+                                Nơi khởi hành:
+                                <span th:text="${tour.departure.departureName}"></span>
+                            </div>
+                            <div class="packages-para">
+                                Nơi kết thúc
+                                <span th:text="${tour.destination.destinationName}"></span>
+                            </div>
+                            <div class="packages-para"
+                                 th:text="${#numbers.formatDecimal(tour.price, 0, 'COMMA', 2, 'POINT')}"></div>
+
+                            <br>
+                            <div class="about-btn">
+                                <div sec:authorize="hasAuthority('USER')">
+                                    <form name="book-tour" th:action="@{/cart/add/{id}(id=${tour.id})}" method="post">
+                                        <button type="submit" class="about-view packages-btn">
+                                            Book Now
+                                        </button>
+                                    </form>
+                                </div>
+                                <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                                    <a th:href="@{/login}">
+                                        <button type="button" class="about-view packages-btn">
+                                            Book Now
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pull-right about-btn">
+                                <a th:href="@{/tour/view-detail-tour/{id} (id = ${tour.id})}">
+                                    <button class="btn btn-danger">
+                                        Chi tiết
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Tour end-->
+
+<!--subscribe start-->
+<section id="subs" class="subscribe">
+    <div class="container">
+        <div class="subscribe-title text-center">
+            <h2>
+                Tham gia để nhận những thông báo về Tour giá rẻ hấp dẫn
+            </h2>
+            <p>
+                Hãy để lại email cho chúng tôi
+            </p>
+        </div>
+        <form id="sendmail" th:action="@{/}" method="post">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="custom-input-group">
+                        <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn ở đây"
+                               required>
+                        <button type="submit" class="appsLand-btn subscribe-btn">Đăng ký</button>
+                        <div class="clearfix"></div>
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="email-message">
+                        <span id="errorMessage"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--subscribe end-->
+
+<!-- footer-copyright start -->
+<footer class="footer-copyright">
+    <div class="container">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="single-footer-item">
+                        <div class="footer-logo">
+                            <a href="/">
+                                tour<span>Nest</span>
+                            </a>
+                            <p>
+                                Du lịch Việt Nam
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-footer-item">
+                        <h2>Đường dẫn</h2>
+                        <div class="single-footer-txt">
+                            <p><a href="#">Trang chủ</a></p>
+                            <p><a href="#">Danh sách</a></p>
+                            <p><a href="#">Tour Packages</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-footer-item">
+                        <h2>Địa điểm nổi tiếng</h2>
+                        <div class="single-footer-txt">
+                            <p><a href="#">Hà Nội</a></p>
+                            <p><a href="#">Hồ Chí Minh</a></p>
+                            <p><a href="#">Đà Nẵng</a></p>
+                            <p><a href="#">Đà Lạt</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-footer-item text-center">
+                        <h2 class="text-left">Liên hệ</h2>
+                        <div class="single-footer-txt text-left">
+                            <p>+84 123456789</p>
+                            <p class="foot-email"><a href="#">hieu.com</a></p>
+                            <p class="foot-email"><a href="#">kien.com</a></p>
+                            <p class="foot-email"><a href="#">tung.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="foot-icons ">
+            <ul class="footer-social-links list-inline list-unstyled">
+                <li><a href="#" target="_blank" class="foot-icon-bg-1"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="#" target="_blank" class="foot-icon-bg-2"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fa-brands fa-github"></i></a></li>
+            </ul>
+        </div>
+        <div id="scroll-Top">
+            <i class="fa fa-angle-double-up return-to-top" data-toggle="tooltip" data-placement="top" title=""
+               data-original-title="Back to Top" aria-hidden="true"></i>
+        </div>
+    </div>
+</footer>
+<!-- footer-copyright end -->
+
+
+</body>
+
+</html>

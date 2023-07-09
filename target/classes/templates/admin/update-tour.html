@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/_LayoutAdmin}">
+
+<head>
+    <title>TourNest - Update Tour</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="container px-4 mt-4">
+        <div class="col-xl-12">
+            <div class="card mb-4">
+                <div class="card-header">Update Tour</div>
+                <div class="card-body">
+                    <form th:object="${tour}" th:action="@{/admin/save}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="tourName">Tour Name:</label>
+                                    <input type="text" class="form-control" th:field="*{tourName}" id="tourName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="number" step="0.01" th:field="*{price}" class="form-control"
+                                           id="price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="startDate">Date Start:</label>
+                                    <input type="date" th:value="${tour.dateStart}" name="dateStart"
+                                           class="form-control" id="startDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">Date End:</label>
+                                    <input type="date" th:value="${tour.dateEnd}" name="dateEnd" class="form-control"
+                                           id="endDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <input type="number" th:field="*{status}" id="status" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <textarea class="form-control" id="description" th:field="*{description}" rows="5"
+                                              cols="50"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="destination">Destination:</label>
+                                    <select class="form-control" id="destination" name="destination"
+                                            th:field="*{destination.id}">
+                                        <option th:each="destination : ${listDestination}"
+                                                th:value="${destination.id}"
+                                                th:text="${destination.destinationName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="departure">Departure:</label>
+                                    <select class="form-control" id="departure" name="departure"
+                                            th:field="*{departure.id}">
+                                        <option th:each="departure : ${listDeparture}"
+                                                th:value="${departure.id}"
+                                                th:text="${departure.departureName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="discount">Discount:</label>
+                                    <select class="form-control" id="discount" name="discount"
+                                            th:field="*{discount.id}">
+                                        <option th:each="discount : ${listDiscount}"
+                                                th:value="${discount.id}"
+                                                th:text="${discount.discountName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tourType">Tour Type:</label>
+                                    <select class="form-control" id="tourType" name="tourType"
+                                            th:field="*{tourType.id}">-->
+                                        <option th:each="tourType : ${listTourType}"
+                                                th:value="${tourType.id}"
+                                                th:text="${tourType.tourTypeName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="imageFile">Image:</label>
+                                    <img id="imagePreview" th:src="${tour.image}" width="100px" height="100px"
+                                         alt="Failed to load image"/>
+                                    <input type="file" class="form-control mt-1" id="imageFile" name="imageFile"
+                                           accept="image/*">
+                                    <input type="hidden" name="oldImage" th:value="${tour.image}">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

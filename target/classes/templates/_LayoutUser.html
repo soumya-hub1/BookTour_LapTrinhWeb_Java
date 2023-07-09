@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <title>TourNest - List tour</title>
+
+    <link rel="shortcut icon" type="image/icon" href="/assets/logo/favicon.png"/>
+    <link rel="stylesheet" href="/assets/css/_LayoutUser.css">
+    <link rel="stylesheet" href="/assets/css/detail-tour.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+            integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <script src="/assets/js/Script.js"></script>
+</head>
+
+<body>
+<nav layout:fragment="header" class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Tour<span class="logo-nest">Nest</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"><b>Trang chủ</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/tour}"><b>Danh sách</b></a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/login}" style="text-decoration: none"><i
+                            class="fa-regular fa-user"></i></a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li sec:authorize="hasAuthority('USER')">
+                            <a class="dropdown-item" th:href="@{/profile}">
+                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                            </a>
+                        </li>
+                        <li sec:authorize="hasAuthority('USER')">
+                            <a class="dropdown-item" th:href="@{/cart/view-payment}">
+                                <i class="fa-solid fa-money-bill"></i> Xem hóa đơn
+                            </a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ADMIN')">
+                            <a class="dropdown-item" th:href="@{/admin/profile}">
+                                <i class="fa-regular fa-user"></i> Quản lý tài khoản
+                            </a>
+                        </li>
+                        <li sec:authorize="hasAuthority('USER')">
+                            <a class="dropdown-item" th:href="@{/change-password}">
+                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ADMIN')">
+                            <a class="dropdown-item" th:href="@{/admin/change-password}">
+                                <i class="fa-solid fa-unlock-keyhole"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/logout}">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div layout:fragment="content" class="container body-content">
+</div>
+</body>
+</html>

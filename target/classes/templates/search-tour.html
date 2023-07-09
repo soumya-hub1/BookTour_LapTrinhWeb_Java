@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{_LayoutUser}">
+
+<head>
+    <title>TourNest</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-md-4" th:each="item : ${SearchTour}">
+            <div class="card mb-3">
+                <img th:src="${item.image}" class="card-img-top" alt="Tour 1">
+                <div class="card-body">
+                    <div>
+                        <span th:text="${#temporals.format(item.dateStart, 'dd/MM/yyyy')}"></span> -
+                        <span th:text="${#temporals.format(item.dateEnd, 'dd/MM/yyyy')}"></span> -
+                        <span th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd) + 1} + 'N' +
+                                       ${T(java.time.temporal.ChronoUnit).DAYS.between(item.dateStart, item.dateEnd)} + 'Đ'">
+                        </span>
+                    </div>
+                    <h3 class="card-title" th:text="${item.tourName}"></h3>
+                    <br>
+                    <div>
+                        <p class="card-text" th:if="${#strings.length(item.description) > 40}"
+                           th:text="${#strings.substring(item.description, 0, 40) + '...'}"
+                           style="margin-bottom:16px"></p>
+                        <p th:if="${#strings.length(item.description) <= 40}" th:text="${item.description}"></p>
+                    </div>
+                    <div>
+                        Nơi khởi hành:
+                        <span th:text="${item.departure.departureName}"></span>
+                    </div>
+                    <div>
+                        Nơi kết thúc
+                        <span th:text="${item.destination.destinationName}"></span>
+                    </div>
+                    <div class="packages-para" th:text="${item.price}"></div>
+                </div>
+
+                <div class="card-footer">
+                    <div sec:authorize="hasAuthority('USER')">
+                        <form th:action="@{/cart/add/{id}(id=${item.id})}" method="post">
+                            <button type="submit" class="btn btn-primary">Book now</button>
+                        </form>
+                    </div>
+                    <div th:if="${not #authorization.expression('isAuthenticated()')}">
+                        <a class="btn btn-primary" th:href="@{/login}">Book tour</a>
+                    </div>
+                    <a th:href="@{/tour/view-detail-tour/{id} (id = ${item.id})}" class="btn btn-outline-danger">
+                        Chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

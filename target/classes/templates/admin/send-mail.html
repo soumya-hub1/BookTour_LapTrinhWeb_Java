@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/_LayoutAdmin}">
+
+<head>
+    <title>TourNest - Send mail</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="container px-4 mt-4">
+        <div class="col-xl-12">
+            <div class="card mb-4">
+                <div class="card-header">Send Mail</div>
+                <div class="card-body">
+                    <form th:action="@{/admin/send-mail}" method="post" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label for="tourName" class="form-label">Tour Name</label>
+                            <input type="text" class="form-control" id="tourName" name="tourName" placeholder="Enter tour name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="tourDescription" class="form-label">Tour Description</label>
+                            <textarea class="form-control" id="tourDescription" rows="3" name="tourDescription" placeholder="Enter tour description"></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="attachment" class="form-label">Attachment File</label>
+                            <input type="file" class="form-control" id="attachment" name="attachment">
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

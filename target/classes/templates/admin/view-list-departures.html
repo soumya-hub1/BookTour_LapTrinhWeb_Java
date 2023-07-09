@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/_LayoutAdmin}">
+
+<head>
+    <title>TourNest - List Tour</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h2 class="text-center mt-2">Danh sách nơi đến</h2>
+    <div class="container">
+        <a th:href="@{/admin/create-departure}"
+           class="btn btn-primary mb-3">
+            <i class="fa-sharp fa-solid fa-plus"></i>
+            Thêm nơi đến
+        </a>
+        <div class="row">
+            <table class="table table-striped table-bordered mt-3">
+                <thead class="text-center">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Nơi đến</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:each="item : ${listDepartures}">
+                    <th scope="row" th:text="${item.id}"></th>
+                    <td th:text="${item.departureName}"></td>
+                    <td>
+                        <a th:href="@{/admin/view-list-departures/update-departure/{id} (id = ${item.id})}"
+                           class="btn btn-outline-primary "
+                           style="margin-right:5px">
+                            <i class="fa-sharp fa-solid fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

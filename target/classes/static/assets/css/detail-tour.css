@@ -1,0 +1,17 @@
+.container .left .image {
+    height: 535px;
+}
+.container .right .small .col-6 .image {
+    height: 200px;
+}
+.container .right .big .image {
+    height: 310px;
+}
+.container .row img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px
+}
+
+
