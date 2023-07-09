@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/_LayoutAdmin}">
+
+<head>
+    <title>TourNest - List Tour</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h2 class="text-center mt-2">Thêm nơi khởi hành</h2>
+    <form th:action="@{/admin/saveDeparture}" method="post">
+        <div class="form-control">
+            <label for="departureName">Tên nơi khởi hành</label>
+            <input type="text" class="form-control" id="departureName" name="departureName"
+                   placeholder="Nhập tên nơi đến">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Thêm</button>
+    </form>
+</div>
+</body>
+
+</html>

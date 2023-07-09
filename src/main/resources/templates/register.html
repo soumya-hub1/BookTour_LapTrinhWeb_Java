@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_LayoutUser}">
+
+<head>
+    <title>Register System</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Trang chủ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<br/><br/>
+<div layout:fragment="content">
+    <div class="row mt-2">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Register Form</h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/register}" th:object="${user}" method="post" id="frmRegister"
+                          class="form-horizontal" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="username">Tên đăng nhập:</label>
+                            <input class="form-control" type="text" id="username" name="username" th:field="*{username}"
+                                   placeholder="Type a new username"
+                                   required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="password">Mật khẩu:</label>
+                            <input class="form-control" type="password" id="password" name="password"
+                                   th:field="*{password}" placeholder="Type a new password" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="firstName">Tên và tên lót:</label>
+                            <input class="form-control" type="text" id="firstName" name="firstName"
+                                   th:field="*{firstName}" placeholder="Type your first name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="lastName">Họ:</label>
+                            <input class="form-control" type="text" id="lastName" name="lastName"
+                                   th:field="*{lastName}" placeholder="Type your last name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="phone">Sđt:</label>
+                            <input class="form-control" type="text" id="phone" name="phone"
+                                   th:field="*{phone}" placeholder="Type your phone number" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="email">Email:</label>
+                            <input class="form-control" type="text" id="email" name="email"
+                                   th:field="*{email}" placeholder="Type your email" required>
+                        </div>
+                        <!--                        Birthday-->
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="birthday">Ngày tháng năm sinh:</label>
+                            <input class="form-control" type="date" id="birthday" name="birthday"
+                                   th:field="*{birthday}" placeholder="choose your birthday" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="address">Địa chỉ:</label>
+                            <input class="form-control" type="text" id="address" name="address"
+                                   th:field="*{address}" placeholder="Type your address" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="sex">Giới tính:</label>
+                            <select class="form-control" id="sex" name="sex" th:field="*{sex}" required>
+                                <option value="">Select your sex</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label" for="imageFile">Ảnh đại điện:</label>
+                            <img id="imagePreview" th:src="${user.image}" width="100px" height="100px"
+                                 alt="No photo selected"/>
+                            <input type="file" class="form-control mt-1" id="imageFile" name="imageFile"
+                                   accept="image/*">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button class="btn btn-primary" type="submit">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
